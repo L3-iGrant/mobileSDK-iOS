@@ -1,0 +1,3 @@
+[submodule "iGrantioSDK - iOS"]
+	path = iGrantioSDK - iOS
+	url = https://github.com/rebink/iGrantioSDK-iOS.git
