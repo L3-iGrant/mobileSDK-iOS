@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'iGrantioSDK_Example' do
+  pod 'iGrantioSDK', :path => '../'
+
+  target 'iGrantioSDK_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
