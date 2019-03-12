@@ -52,6 +52,16 @@
                ReferencedContainer = "container:iGrantioSDK.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0E8616642237C33B001783E2"
+               BuildableName = "iGrantioSDK_ExampleTests.xctest"
+               BlueprintName = "iGrantioSDK_ExampleTests"
+               ReferencedContainer = "container:iGrantioSDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

@@ -9,7 +9,6 @@
 
 import UIKit
 import ExpandableLabel
-import Popover
 import SafariServices
 
 class OrganisationViewController: BaseViewController {
@@ -24,7 +23,7 @@ class OrganisationViewController: BaseViewController {
     var organisationId = ""
     var isNeedToRefresh = false
     var overViewCollpased = true
-    let popover = Popover()
+    let popover = iGrant_Popover()
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 s.ios.deployment_target = '10.0'
 
 s.source_files = 'iGrantioSDK/Classes/**/*'
-s.swift_version = '4.0'
+s.swift_version = '4.2'
 s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
 'PopView' => ['iGrantioSDK/Classes/iGrantFiles/Organisation/PopOverView.xib'],
@@ -44,7 +44,7 @@ s.dependency 'MBProgressHUD'
 s.dependency 'SkyFloatingLabelTextField', '~> 3.0'
 s.dependency 'IQKeyboardManagerSwift'
 s.dependency "ExpandableLabel"
-s.dependency "Popover"
+#s.dependency "Popover"
 s.dependency 'Toast-Swift'
 
 end
