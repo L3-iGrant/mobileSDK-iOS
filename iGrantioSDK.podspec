@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 s.ios.deployment_target = '10.0'
 
 s.source_files = 'iGrantioSDK/Classes/**/*'
-s.swift_version = '4.2'
+s.swift_version = '4.0'
 s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
 'PopView' => ['iGrantioSDK/Classes/iGrantFiles/Organisation/PopOverView.xib'],

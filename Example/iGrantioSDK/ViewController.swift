@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import iGrantFramework
+import iGrantioSDK
 
 class ViewController: UIViewController {
 
