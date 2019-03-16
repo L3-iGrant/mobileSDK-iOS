@@ -11,6 +11,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+Swift 4.2 and Xcode 10.
+
 ## Installation
 
 iGrantioSDK is available through [CocoaPods](https://cocoapods.org). To install
@@ -18,6 +20,16 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'iGrantioSDK'
+```
+
+## Usage
+
+You can easily present the iGrantViewController by single line code shown below:
+
+```swift
+#import iGrantioSDK
+
+iGrantViewController.shared.show(organisationToken: <Your iGrant.io Organisation Token> , userToken: <iGrant.io Token of User>)
 ```
 
 ## Author
