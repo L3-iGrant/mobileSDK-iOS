@@ -19,7 +19,12 @@ enum OrganizationApiType {
     case UpdateConsent
     case PurposeList
     case UpdatePurpose
-    
+    case requestDownloadData
+    case requestForgetMe
+    case getDownloadDataStatus
+    case getForgetMeStatus
+    case cancelRequest
+    case getRequestedStatus
 }
 
 class WebServiceTaskManager: NSObject {
@@ -38,6 +43,8 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
     var searchOrganisationInputStr = ""
     var consentDictionary = [String: AnyObject]()
     var consentId = ""
+    var requestId = ""
+    var requestType = RequestType.DownloadData
 
     
     func getNonAddedOrganisationList(){
@@ -158,6 +165,62 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
 //        https://api.igrant.dev/v1/organizations/5b2137c93fee23000194d8ea/users/5b2135a23fee23000194d8e3/consents/5b3dca30c8c87f0001322c48/purposes/5b3dc983c8c87f0001322c45/status
     }
     
+    func requestDownloadData(orgId : String){
+        serviceType = .requestDownloadData
+        organisationId = orgId
+        DispatchQueue.global().async {
+            self.searchService.delegate = self
+            self.searchService.requestDownloadData(orgId: orgId)
+        }
+    }
+    
+    func requestForgetMe(orgId : String){
+        serviceType = .requestForgetMe
+        organisationId = orgId
+        DispatchQueue.global().async {
+            self.searchService.delegate = self
+            self.searchService.requestForgetMe(orgId: orgId)
+        }
+    }
+    
+    func getDownloadDataStatus(orgId : String){
+        serviceType = .getDownloadDataStatus
+        organisationId = orgId
+        DispatchQueue.global().async {
+            self.searchService.delegate = self
+            self.searchService.getDownloadDataStatus(orgId: orgId)
+        }
+    }
+    
+    func getForgetMeStatus(orgId : String){
+        serviceType = .getForgetMeStatus
+        organisationId = orgId
+        DispatchQueue.global().async {
+            self.searchService.delegate = self
+            self.searchService.getForgetMeStatus(orgId: orgId)
+        }
+    }
+    
+    func cancelRequest(orgId : String, requestId: String, type: RequestType ){
+        serviceType = .cancelRequest
+        organisationId = orgId
+        self.requestId = requestId
+        self.requestType = type
+        DispatchQueue.global().async {
+            self.searchService.delegate = self
+            self.searchService.cancelRequest(orgId: orgId, requestID: requestId, type: type)
+        }
+    }
+    
+    func getRequestedStatus(orgId: String) {
+        serviceType = .getRequestedStatus
+        organisationId = orgId
+        DispatchQueue.global().async {
+            self.searchService.delegate = self
+            self.searchService.getRequestedStatus(orgId: orgId)
+        }
+    }
+    
     func reCallFailedApi(){
         switch(serviceType) {
         case .NonAddedOrgList:getNonAddedOrganisationList()
@@ -172,6 +235,12 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
 //        updateConsent(orgId: organisationId, consentID: consentId, valuesDict: consentDictionary)
         case .PurposeList : break
         case .UpdatePurpose : break
+        case .requestDownloadData : requestDownloadData(orgId: self.organisationId)
+        case .requestForgetMe : requestForgetMe(orgId: self.organisationId)
+        case .getForgetMeStatus : getForgetMeStatus(orgId: self.organisationId)
+        case .getDownloadDataStatus : getDownloadDataStatus(orgId: self.organisationId)
+        case .cancelRequest : cancelRequest(orgId: self.organisationId, requestId: self.requestId, type: self.requestType)
+        case .getRequestedStatus : getRequestedStatus(orgId: self.organisationId)
         }
     }
     
@@ -198,6 +267,13 @@ extension OrganisationWebServiceManager : BaseServiceDelegates {
             case .UpdateConsent: handleUpdateConsentResponse(response: response)
             case .PurposeList : handleConsentListResponse(response: response)
             case .UpdatePurpose : handleUpdatePuposeResponse(response: response)
+                
+            case .requestDownloadData : handleRequestDownloadDataResponse(response: response)
+            case .requestForgetMe : handleRequestForgetMeResponse(response: response)
+            case .getForgetMeStatus : handleGetForgetMeStatusResponse(response: response)
+            case .getDownloadDataStatus : handleGetDownloadDataStatusResponse(response: response)
+            case .cancelRequest : handleCanceRequestResponse(response: response)
+            case .getRequestedStatus : handleRequestedStatusHistory(response: response)
             }
         }
         
@@ -290,6 +366,61 @@ extension OrganisationWebServiceManager {
         }
     }
     
+    func handleRequestDownloadDataResponse(response: RestResponse?){
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
     
+    func handleRequestForgetMeResponse(response: RestResponse?){
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
+    
+    func handleGetDownloadDataStatusResponse(response: RestResponse?){
+        let responseData = response!.response!
+        let RequestStatusinfo = RequestStatus(fromJson:responseData)
+        response?.responseModel = RequestStatusinfo as AnyObject?
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
+    
+    func handleGetForgetMeStatusResponse(response: RestResponse?){
+        let responseData = response!.response!
+        let RequestStatusinfo = RequestStatus(fromJson:responseData)
+        response?.responseModel = RequestStatusinfo as AnyObject?
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
+    
+    func handleCanceRequestResponse(response: RestResponse?){
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
+    
+    func handleRequestedStatusHistory(response: RestResponse?) {
+        let responseData = response!.response!
+        let RequestedStatusHistoryInfo = RequestedStatusHistory(fromJson:responseData)
+        response?.responseModel = RequestedStatusHistoryInfo as AnyObject?
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
 
 }

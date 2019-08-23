@@ -10,11 +10,16 @@
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+Environment
+iOS 10.0+,
+macOS 10.10+,
+Swift 4.1
+Xcode 9.0+
 
 ## Installation
 
 iGrantioSDK is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+it, add the following line to your Podfile:
 
 ```ruby
 pod 'iGrantioSDK'
@@ -26,4 +31,4 @@ iGrant.io
 
 ## License
 
-iGrantioSDK is available under the MIT license. See the LICENSE file for more info.
+iGrantioSDK is available under the custom license. See the LICENSE file for more info.

@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 
   s.homepage         = 'https://github.com/L3-iGrant/mobileSDK-iOS'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.license          = { :type => 'custom', :file => 'LICENSE' }
   s.author           = 'iGrant.io'
   s.source           = { :git => 'https://github.com/L3-iGrant/mobileSDK-iOS.git', :tag => s.version.to_s }
 
@@ -44,6 +44,13 @@ s.dependency 'MBProgressHUD'
 s.dependency 'SkyFloatingLabelTextField', '~> 3.0'
 s.dependency 'IQKeyboardManagerSwift'
 s.dependency "ExpandableLabel"
+s.dependency 'MiniLayout', '~> 1.3.0'
+s.dependency 'StepProgressView'
+s.dependency 'SDStateTableView'
+s.dependency 'SwiftEntryKit'
+s.dependency 'AFDateHelper'
+
+
 #s.dependency "Popover"
 s.dependency 'Toast-Swift'
 

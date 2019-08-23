@@ -9,10 +9,13 @@
 
 import UIKit
 
+enum RequestType {
+    case DownloadData
+    case ForgetMe
+}
+
 class OrganisationWebService: BaseWebService {
     
-
-
     func nonAddedOrganisationList(){
         self.url = baseUrl + "GetOrgsToSubscribe"
         GET()
@@ -91,7 +94,43 @@ class OrganisationWebService: BaseWebService {
         PATCH()
     }
 
+    func requestDownloadData(orgId: String) {
+        
+        self.url = baseUrl + "user/organizations/" + orgId + "/data-download"
+        POST()
+    }
     
+    func requestForgetMe(orgId: String) {
+        
+        self.url = baseUrl + "user/organizations/" + orgId + "/data-delete"
+        POST()
+    }
+    
+    func getDownloadDataStatus(orgId: String) {
+        
+        self.url = baseUrl + "user/organizations/" + orgId + "/data-download/status"
+        GET()
+    }
+    
+    func getForgetMeStatus(orgId: String) {
+        
+        self.url = baseUrl + "user/organizations/" + orgId + "/data-delete/status"
+        GET()
+    }
+    
+    func cancelRequest(orgId: String, requestID: String, type: RequestType) {
+        if type == RequestType.DownloadData {
+            self.url = baseUrl + "user/organizations/" + orgId + "/data-download/" + requestID + "/cancel"
+        } else {
+            self.url = baseUrl + "user/organizations/" + orgId + "/data-delete/" + requestID + "/cancel"
+        }
+        POST()
+    }
+    
+    func getRequestedStatus(orgId: String) {
+        self.url = baseUrl + "user/organizations/" + orgId + "/data-status"
+        GET()
+    }
     
     
 }

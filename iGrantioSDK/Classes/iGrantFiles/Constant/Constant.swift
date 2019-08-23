@@ -148,6 +148,7 @@ struct Constant {
         static let KOrgDetailedConsentDisAllowCellID = "DisallowCell"
         static let KOrgDetailedConsentAskMeCellID = "AskMeCell"
         static let KOrgSuggestionCellID = "SuggestionCell"
+        static let KRequestedStatusCellID = "RequestStatusTableViewCell"
 
 
         

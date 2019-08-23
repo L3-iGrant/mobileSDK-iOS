@@ -86,6 +86,34 @@ class OrganisationViewController: BaseViewController {
         serviceManager.getOrganisationDetails(orgId: self.organisationId)
     }
     
+    func requestForgetMe() {
+        addLoadingIndicator()
+        let serviceManager = OrganisationWebServiceManager()
+        serviceManager.managerDelegate = self
+        serviceManager.requestForgetMe(orgId: organisationId)
+    }
+    
+    func requestDownloadData() {
+        addLoadingIndicator()
+        let serviceManager = OrganisationWebServiceManager()
+        serviceManager.managerDelegate = self
+        serviceManager.requestDownloadData(orgId: organisationId)
+    }
+    
+    func getDownloadDataStatus() {
+        addLoadingIndicator()
+        let serviceManager = OrganisationWebServiceManager()
+        serviceManager.managerDelegate = self
+        serviceManager.getDownloadDataStatus(orgId: organisationId)
+    }
+    
+    func getForgetMeStatus() {
+        addLoadingIndicator()
+        let serviceManager = OrganisationWebServiceManager()
+        serviceManager.managerDelegate = self
+        serviceManager.getForgetMeStatus(orgId: organisationId)
+    }
+    
     @IBAction func backButtonClicked(){
         
         self.dismiss(animated: true, completion: nil)
@@ -117,6 +145,10 @@ class OrganisationViewController: BaseViewController {
         
         popOverview.forgetMeButton.addTarget(self, action: #selector(tappedOnForgetMeButton), for: .touchUpInside)
         
+         popOverview.requestedStatus.addTarget(self, action: #selector(tappedOnRequestedStatusButton), for: .touchUpInside)
+        
+         popOverview.consentHistory.addTarget(self, action: #selector(tappedOnConsentHistoryButton), for: .touchUpInside)
+        
 //        popover.arrowSize = CGSize.init(width: 15, height: 20)
         popover.show(popOverview, point: startPoint)
     }
@@ -134,28 +166,39 @@ class OrganisationViewController: BaseViewController {
         }
     }
     
+    @objc func tappedOnRequestedStatusButton() {
+        popover.dismiss()
+        self.showRequestedStatus()
+    }
+    
+    @objc func tappedOnConsentHistoryButton() {
+        popover.dismiss()
+        self.showConsentHistory()
+    }
+    
     @objc func tappedOnDownloadData() {
         // create the alert
         popover.dismiss()
-        let alert = UIAlertController(title: NSLocalizedString("Download Data", comment: ""), message: NSLocalizedString("A request to download data has been submitted. We will respond to you shortly.", comment: ""), preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.default, handler: nil))
-        
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        self.getDownloadDataStatus()
     }
     
     @objc func tappedOnForgetMeButton() {
         popover.dismiss()
         // create the alert
-        let alert = UIAlertController(title: NSLocalizedString("Forget Me", comment: ""), message: NSLocalizedString("A request for deleting your data has been submitted. We will process your request shortly.", comment: ""), preferredStyle: UIAlertController.Style.alert)
-        
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.default, handler: nil))
-        
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
+        self.getForgetMeStatus()
+    }
+    
+    
+    func showRequestedStatus() {
+        let RequestStatusHistoryVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "RequestStatusHistoryViewController") as! RequestStatusHistoryViewController
+        RequestStatusHistoryVC.orgId = organisationId
+        navigationController?.pushViewController(RequestStatusHistoryVC, animated: true)
+    }
+    
+    func showConsentHistory() {
+        let ConsentHistoryVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "ConsentHistoryVC") as! ConsentHistoryViewController
+        ConsentHistoryVC.orgId = organisationId
+        navigationController?.pushViewController(ConsentHistoryVC, animated: true)
     }
     
     func verifyUrl(urlString: String?) -> Bool {
@@ -171,31 +214,80 @@ class OrganisationViewController: BaseViewController {
 extension OrganisationViewController:WebServiceTaskManagerProtocol{
     
     func didFinishTask(from manager:AnyObject, response:(data:RestResponse?,error:String?)){
-        self.removeLoadingIndicator()
+        removeLoadingIndicator()
         
-        if response.error != nil{
-            self.showErrorAlert(message: (response.error)!)
+        if response.error != nil {
+            if let serviceManager = manager as? OrganisationWebServiceManager {
+                if serviceManager.serviceType == .OrgDetails {
+                    
+                }
+            }
+            
+            showErrorAlert(message: (response.error)!)
             return
         }
         
-        if let serviceManager = manager as? OrganisationWebServiceManager{
-            if serviceManager.serviceType == .AllowAlConsent{
-               self.callOrganisationDetailsApi()
-            }
-            else if serviceManager.serviceType == .UpdatePurpose{
-                self.callOrganisationDetailsApi()
+        if let serviceManager = manager as? OrganisationWebServiceManager {
+            if serviceManager.serviceType == .AllowAlConsent {
+                callOrganisationDetailsApi()
+            } else if serviceManager.serviceType == .UpdatePurpose {
+                callOrganisationDetailsApi()
+            } else if serviceManager.serviceType == .requestDownloadData {
+                let downloadDataProgressVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "DownloadDataProgressViewController") as! DownloadDataProgressViewController
+                downloadDataProgressVC.organisationId = organisationId
+                downloadDataProgressVC.requestType = RequestType.DownloadData
+                navigationController?.pushViewController(downloadDataProgressVC, animated: true)
+                //                let alert = UIAlertController(title: "Download Data".localized(), message: "A request to download data has been submitted. We will respond to you shortly.".localized(), preferredStyle: UIAlertController.Style.alert)
+                //
+                //                // add an action (button)
+                //                alert.addAction(UIAlertAction(title: "OK".localized(), style: UIAlertAction.Style.default, handler: nil))
+                //
+                //                // show the alert
+                //                self.present(alert, animated: true, completion: nil)
+            } else if serviceManager.serviceType == .requestForgetMe {
+                let downloadDataProgressVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "DownloadDataProgressViewController") as! DownloadDataProgressViewController
+                downloadDataProgressVC.organisationId = organisationId
+                downloadDataProgressVC.requestType = RequestType.ForgetMe
+                navigationController?.pushViewController(downloadDataProgressVC, animated: true)
+                //                let alert = UIAlertController(title: "Forget Me".localized(), message: "A request for deleting your data has been submitted. We will process your request shortly.".localized(), preferredStyle: UIAlertController.Style.alert)
+                //
+                //                // add an action (button)
+                //                alert.addAction(UIAlertAction(title: "OK".localized(), style: UIAlertAction.Style.default, handler: nil))
+                //
+                //                // show the alert
+                //                self.present(alert, animated: true, completion: nil)
+            } else if serviceManager.serviceType == .getDownloadDataStatus {
+                if let data = response.data?.responseModel as? RequestStatus {
+                    if data.RequestOngoing {
+                        let downloadDataProgressVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "DownloadDataProgressViewController") as! DownloadDataProgressViewController
+                        downloadDataProgressVC.organisationId = organisationId
+                        downloadDataProgressVC.requestType = RequestType.DownloadData
+                        downloadDataProgressVC.requestStatus = data
+                        navigationController?.pushViewController(downloadDataProgressVC, animated: true)
+                    } else {
+                        requestDownloadData()
+                    }
+                }
+            } else if serviceManager.serviceType == .getForgetMeStatus {
+                if let data = response.data?.responseModel as? RequestStatus {
+                    if data.RequestOngoing {
+                        let downloadDataProgressVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "DownloadDataProgressViewController") as! DownloadDataProgressViewController
+                        downloadDataProgressVC.organisationId = organisationId
+                        downloadDataProgressVC.requestType = RequestType.ForgetMe
+                        downloadDataProgressVC.requestStatus = data
+                        navigationController?.pushViewController(downloadDataProgressVC, animated: true)
+                    } else {
+                        requestForgetMe()
+                    }
+                }
             }
         }
         
         if let data = response.data?.responseModel as? OrganisationDetails {
-            //                if data.productList != nil{
-            //                    self.productList.append(contentsOf: data.productList!)
-            //                }
-            self.organisaionDeatils = data
-            self.orgTableView.reloadData()
+            organisaionDeatils = data
+            orgTableView.reloadData()
         }
     }
-    
 }
 
 extension  OrganisationViewController : UITableViewDelegate,UITableViewDataSource{
