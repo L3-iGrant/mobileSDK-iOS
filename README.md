@@ -13,8 +13,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 Environment
 iOS 10.0+,
 macOS 10.10+,
-Swift 4.1
-Xcode 9.0+
 
 Swift 4.2 and Xcode 10.
 
