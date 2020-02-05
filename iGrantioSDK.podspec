@@ -27,14 +27,14 @@ Pod::Spec.new do |s|
 
 s.ios.deployment_target = '10.0'
 
-s.source_files = 'iGrantioSDK/Classes/**/*'
+s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift}'
 s.swift_version = '4.2'
 s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
 'PopView' => ['iGrantioSDK/Classes/iGrantFiles/Organisation/PopOverView.xib'],
 'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard']
 }
-#  s.resources = 'iGrantioSDK/Classes/iGrantFiles/iGrantAssets.xcassets/checked.imageset/checked@2x.png'
+#s.resources = 'iGrantioSDK/Assets/**/*.png'
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
 s.frameworks = 'UIKit' , 'SafariServices'

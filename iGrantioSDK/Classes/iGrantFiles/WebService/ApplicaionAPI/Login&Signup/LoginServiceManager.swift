@@ -303,11 +303,7 @@ extension LoginServiceManager {
     }
     
     func handleChangePasswordResponse(response:RestResponse?){
-        UserInfo.currentUser()?.userPwd = newPassword
-        UserInfo.currentUser()?.save()
-        let responseData = response!.response!
         DispatchQueue.global().async {
-            
             DispatchQueue.main.async {
                 self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
             }

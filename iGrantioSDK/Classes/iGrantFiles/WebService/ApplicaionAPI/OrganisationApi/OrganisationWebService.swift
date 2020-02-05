@@ -33,10 +33,6 @@ class OrganisationWebService: BaseWebService {
     }
     
     func organisationDetails(orgId : String){
-        var userId  =  ""
-        if  UserInfo.currentUser()?.userID != nil{
-            userId =  (UserInfo.currentUser()?.userID)!
-        }
         self.url = baseUrl + "GetUserOrgsAndConsents" + "?orgID=" + orgId
         GET()
     }
@@ -52,10 +48,6 @@ class OrganisationWebService: BaseWebService {
     }
     
     func getOrganisationSubscribeMethod(orgId : String) {
-        var userId  =  ""
-        if  UserInfo.currentUser()?.userID != nil{
-            userId =  (UserInfo.currentUser()?.userID)!
-        }
         self.url = baseUrl + "organizations/" + orgId + "/subscribe-method"
         GET()
         
