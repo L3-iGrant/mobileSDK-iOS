@@ -14,8 +14,6 @@ enum OrganizationApiType {
     case OrgDetails
     case RemoveOrg
     case AllowAlConsent
-    case SubscribedAndSuggestions
-    case SearchOrg
     case UpdateConsent
     case PurposeList
     case UpdatePurpose
@@ -25,6 +23,7 @@ enum OrganizationApiType {
     case getForgetMeStatus
     case cancelRequest
     case getRequestedStatus
+    case acceptEula
 }
 
 class WebServiceTaskManager: NSObject {
@@ -43,9 +42,16 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
     var searchOrganisationInputStr = ""
     var consentDictionary = [String: AnyObject]()
     var consentId = ""
+    var subscriptionKey = ""
     var requestId = ""
     var requestType = RequestType.DownloadData
-
+    var isLoadMore = false
+    func refreshToken(){
+        let service = BaseWebService()
+        service.delegate = self
+        service.serviceType = .ReCallLogin
+        service.refreshToken()
+    }
     
     func getNonAddedOrganisationList(){
         serviceType = .NonAddedOrgList
@@ -55,15 +61,6 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
         }
     }
     
-    func getSubscribedAndSuggestionsOrganisationList(orgTypeId : String){
-        serviceType = .SubscribedAndSuggestions
-        organisationType = orgTypeId
-        DispatchQueue.global().async {
-            self.searchService.delegate = self
-            self.searchService.getSubscribedOrgnaisationList(categoryId: orgTypeId)
-        }
-    }
-
     func getOrganisationDetails(orgId : String){
         serviceType = .OrgDetails
         organisationId = orgId
@@ -73,15 +70,15 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
         }
     }
     
-    func consentNewOrganisation(orgId : String){
+    func consentNewOrganisation(orgId : String, subKey: String?){
         organisationId = orgId
         serviceType = .AddNewOrg
+        subscriptionKey = subKey ?? ""
         DispatchQueue.global().async {
             self.searchService.delegate = self
-            self.searchService.addOrganisation(orgId: orgId)
+            self.searchService.addOrganisation(orgId: orgId, subKey: subKey)
         }
     }
-    
     
     func consentList(orgId : String,purposeId:String,consentId : String ){
         organisationId = orgId
@@ -89,8 +86,8 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
         DispatchQueue.global().async {
             self.searchService.delegate = self
             var userId  =  ""
-            if Constant.Userinfo.currentUser.iGrantUserID != ""{
-                userId =   Constant.Userinfo.currentUser.iGrantUserID 
+            if  UserInfo.currentUser()?.userID != nil{
+                userId =  (UserInfo.currentUser()?.userID)!
             }
             let urlPart = "/consents/" + consentId + "/purposes/" + purposeId
             self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userId + urlPart
@@ -115,17 +112,7 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
             self.searchService.allowAllConsent(orgId: orgId)
         }
     }
-    
-    func searchOrganisation(org : String,orgType:String?){
-        searchOrganisationInputStr = org
-        organisationType = orgType
-        serviceType = .SearchOrg
-        DispatchQueue.global().async {
-            self.searchService.delegate = self
-            self.searchService.searchOrg(input: org, typeId: orgType)
-        }
-    }
-    
+  
     func updateConsent(orgId : String,consentID : String,attributeId : String,purposeId:String,valuesDict:[String: AnyObject]){
         organisationId = orgId
         serviceType = .UpdateConsent
@@ -134,8 +121,8 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
         DispatchQueue.global().async {
             self.searchService.delegate = self
             var userId  =  ""
-            if Constant.Userinfo.currentUser.iGrantUserID != ""{
-                userId =   Constant.Userinfo.currentUser.iGrantUserID 
+            if  UserInfo.currentUser()?.userID != nil{
+                userId =  (UserInfo.currentUser()?.userID)!
             }
             let urlPart = "/consents/" + consentID + "/purposes/" + purposeId + "/attributes/" + attributeId
             self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userId + urlPart
@@ -148,13 +135,13 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
     
     func updatePurpose(orgId : String,consentID : String,attributeId : String,purposeId:String,status:String){
             organisationId = orgId
-            serviceType = .UpdatePurpose
+            serviceType = .AllowAlConsent
             consentId = consentID
             DispatchQueue.global().async {
                 self.searchService.delegate = self
                 var userId  =  ""
-                if Constant.Userinfo.currentUser.iGrantUserID != ""{
-                    userId =   Constant.Userinfo.currentUser.iGrantUserID 
+                if  UserInfo.currentUser()?.userID != nil{
+                    userId =  (UserInfo.currentUser()?.userID)!
                 }
                 let urlPart = "/consents/" + consentID + "/purposes/" + purposeId + "/status"
                 self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userId + urlPart
@@ -162,44 +149,53 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
                 self.searchService.POST()
                 //            self.searchService.changeConsent(orgId: orgId, consentID: consentID, parameter: valuesDict)
             }
-//        https://api.igrant.dev/v1/organizations/5b2137c93fee23000194d8ea/users/5b2135a23fee23000194d8e3/consents/5b3dca30c8c87f0001322c48/purposes/5b3dc983c8c87f0001322c45/status
     }
+        
+        func requestDownloadData(orgId : String){
+            serviceType = .requestDownloadData
+            organisationId = orgId
+            DispatchQueue.global().async {
+                self.searchService.delegate = self
+                self.searchService.requestDownloadData(orgId: orgId)
+            }
+        }
+        
+        func requestForgetMe(orgId : String){
+            serviceType = .requestForgetMe
+            organisationId = orgId
+            DispatchQueue.global().async {
+                self.searchService.delegate = self
+                self.searchService.requestForgetMe(orgId: orgId)
+            }
+        }
     
-    func requestDownloadData(orgId : String){
-        serviceType = .requestDownloadData
+    func acceptEulaConsent(orgId : String, parameters: [String : AnyObject]){
+        serviceType = .acceptEula
+        consentDictionary = parameters
         organisationId = orgId
         DispatchQueue.global().async {
             self.searchService.delegate = self
-            self.searchService.requestDownloadData(orgId: orgId)
+            self.searchService.acceptEulaConsent(orgId: orgId, parameters: parameters)
         }
     }
-    
-    func requestForgetMe(orgId : String){
-        serviceType = .requestForgetMe
-        organisationId = orgId
-        DispatchQueue.global().async {
-            self.searchService.delegate = self
-            self.searchService.requestForgetMe(orgId: orgId)
-        }
-    }
-    
-    func getDownloadDataStatus(orgId : String){
+        
+        func getDownloadDataStatus(orgId : String){
         serviceType = .getDownloadDataStatus
         organisationId = orgId
         DispatchQueue.global().async {
-            self.searchService.delegate = self
-            self.searchService.getDownloadDataStatus(orgId: orgId)
+        self.searchService.delegate = self
+        self.searchService.getDownloadDataStatus(orgId: orgId)
         }
-    }
-    
-    func getForgetMeStatus(orgId : String){
+        }
+        
+        func getForgetMeStatus(orgId : String){
         serviceType = .getForgetMeStatus
         organisationId = orgId
         DispatchQueue.global().async {
-            self.searchService.delegate = self
-            self.searchService.getForgetMeStatus(orgId: orgId)
+        self.searchService.delegate = self
+        self.searchService.getForgetMeStatus(orgId: orgId)
         }
-    }
+        }
     
     func cancelRequest(orgId : String, requestId: String, type: RequestType ){
         serviceType = .cancelRequest
@@ -221,16 +217,25 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
         }
     }
     
+    func getRequestedStatusLoadMoreList(url:String){
+        serviceType = .getRequestedStatus
+        self.isLoadMore =  true
+        DispatchQueue.global().async{
+            let orgService = OrganisationWebService()
+            orgService.delegate = self
+            orgService.requestedStatusLoadMore(apiUrl: url)
+        }
+    }
+//        https://api.igrant.dev/v1/organizations/5b2137c93fee23000194d8ea/users/5b2135a23fee23000194d8e3/consents/5b3dca30c8c87f0001322c48/purposes/5b3dc983c8c87f0001322c45/status
+    
+    
     func reCallFailedApi(){
         switch(serviceType) {
         case .NonAddedOrgList:getNonAddedOrganisationList()
-        case .AddNewOrg:consentNewOrganisation(orgId: self.organisationId)
+        case .AddNewOrg: consentNewOrganisation(orgId: self.organisationId, subKey: self.subscriptionKey)
         case .OrgDetails:getOrganisationDetails(orgId: self.organisationId)
         case .RemoveOrg:removeOrganisation(orgId: self.organisationId)
         case .AllowAlConsent:allowAllConsentOfOrganisation(orgId: self.organisationId)
-        case .SubscribedAndSuggestions: let orgTypTmp : String = organisationType!
-            getSubscribedAndSuggestionsOrganisationList(orgTypeId: orgTypTmp)
-        case .SearchOrg :searchOrganisation(org: searchOrganisationInputStr, orgType: organisationType)
         case .UpdateConsent: break
 //        updateConsent(orgId: organisationId, consentID: consentId, valuesDict: consentDictionary)
         case .PurposeList : break
@@ -241,6 +246,7 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
         case .getDownloadDataStatus : getDownloadDataStatus(orgId: self.organisationId)
         case .cancelRequest : cancelRequest(orgId: self.organisationId, requestId: self.requestId, type: self.requestType)
         case .getRequestedStatus : getRequestedStatus(orgId: self.organisationId)
+        case .acceptEula : acceptEulaConsent(orgId: self.organisationId, parameters: self.consentDictionary)
         }
     }
     
@@ -251,19 +257,23 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
 
 extension OrganisationWebServiceManager : BaseServiceDelegates {
     func didSuccessfullyReceiveData(response:RestResponse?){
-        //let responseData = response!.response!
+        let responseData = response!.response!
         if response?.serviceType == .ReCallLogin{
-            Constant.Userinfo.currentUser.deleteData()
-            
+            if let accessToken = responseData["access_token"].string{
+                UserInfo.currentUser()?.token = accessToken
+            }
+            if let refreshToken = responseData["refresh_token"].string{
+                UserInfo.currentUser()?.token = refreshToken
+            }
+            UserInfo.currentUser()?.save()
+            self.reCallFailedApi()
         }else{
             switch(serviceType) {
             case .NonAddedOrgList:handleNonAddedOrgsResponse(response: response)
-            case .AddNewOrg: break//handleAddNewOrgResponse(response: response)
+            case .AddNewOrg: handleAddNewOrgResponse(response: response)
             case .OrgDetails: handleOrgDetailsResponse(response: response)
-            case .RemoveOrg: break//handleRemoveOrgResponse(response: response)
+            case .RemoveOrg: handleRemoveOrgResponse(response: response)
             case .AllowAlConsent: handleAlloAllConsentResponse(response: response)
-            case .SubscribedAndSuggestions: break// handleSubscribedAndSuggestionResponse(response: response)
-            case .SearchOrg :break//handleSearchResponse(response: response)
             case .UpdateConsent: handleUpdateConsentResponse(response: response)
             case .PurposeList : handleConsentListResponse(response: response)
             case .UpdatePurpose : handleUpdatePuposeResponse(response: response)
@@ -274,17 +284,14 @@ extension OrganisationWebServiceManager : BaseServiceDelegates {
             case .getDownloadDataStatus : handleGetDownloadDataStatusResponse(response: response)
             case .cancelRequest : handleCanceRequestResponse(response: response)
             case .getRequestedStatus : handleRequestedStatusHistory(response: response)
+            case .acceptEula : handleAcceptEulaConsentResponse(response: response)
             }
         }
-        
-        
-        
-      
     }
     
     func didFailedToReceiveData(response:RestResponse?){
         if response?.message == Constant.AppSetupConstant.KTokenExpired{
-           Constant.Userinfo.currentUser.deleteData()
+            self.refreshToken()
         }else{
             self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: response?.message))
         }
@@ -322,7 +329,28 @@ extension OrganisationWebServiceManager {
             }
         }
     }
-
+    
+    func handleAddNewOrgResponse(response:RestResponse?){
+//        let responseData = response!.response!
+        DispatchQueue.global().async {
+//            let orgDetails = OrganisationDetails(fromJson:responseData)
+//            response?.responseModel = orgDetails as AnyObject?
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
+    
+    func handleRemoveOrgResponse(response:RestResponse?){
+//        let responseData = response!.response!
+        DispatchQueue.global().async {
+            //            let orgDetails = OrganisationDetails(fromJson:responseData)
+            //            response?.responseModel = orgDetails as AnyObject?
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
     
     func handleAlloAllConsentResponse(response:RestResponse?){
         //        let responseData = response!.response!
@@ -334,9 +362,8 @@ extension OrganisationWebServiceManager {
             }
         }
     }
-    
+
     func handleUpdateConsentResponse(response:RestResponse?){
-        //let responseData = response!.response!
         DispatchQueue.global().async {
             DispatchQueue.main.async {
                 self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
@@ -345,7 +372,6 @@ extension OrganisationWebServiceManager {
     }
     
     func handleUpdatePuposeResponse(response:RestResponse?){
-       // let responseData = response!.response!
         DispatchQueue.global().async {
             DispatchQueue.main.async {
                 self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
@@ -367,6 +393,14 @@ extension OrganisationWebServiceManager {
     }
     
     func handleRequestDownloadDataResponse(response: RestResponse?){
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
+    
+    func handleAcceptEulaConsentResponse(response: RestResponse?){
         DispatchQueue.global().async {
             DispatchQueue.main.async {
                 self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
@@ -422,5 +456,6 @@ extension OrganisationWebServiceManager {
             }
         }
     }
+    
 
 }

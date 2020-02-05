@@ -59,7 +59,7 @@ class OrgImageTableViewCell: UITableViewCell {
         self.locationLbl.text = self.orgData?.location
         if let imageUrl = self.orgData?.coverImageURL{
             let headers = [
-                "Authorization": "Bearer \(Constant.Userinfo.currentUser.iGrantToken)"
+                "Authorization": "Bearer \(UserInfo.currentUser()?.token)"
             ]
             
             let request = NSMutableURLRequest(url: imageUrl,
@@ -87,7 +87,7 @@ class OrgImageTableViewCell: UITableViewCell {
         }
         if let imageUrl = self.orgData?.logoImageURL{
             let headers = [
-                "Authorization": "Bearer \(Constant.Userinfo.currentUser.iGrantToken)"
+                "Authorization": "Bearer \(UserInfo.currentUser()?.token)"
             ]
             
             let request = NSMutableURLRequest(url: imageUrl,

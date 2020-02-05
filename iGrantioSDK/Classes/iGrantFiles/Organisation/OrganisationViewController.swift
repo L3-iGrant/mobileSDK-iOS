@@ -120,7 +120,49 @@ class OrganisationViewController: BaseViewController {
     }
     
     @IBAction func moreButtonClicked() {
-        self.showPopOver()
+        // create an actionSheet
+        let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        // create an action
+        let firstAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Privacy Policy", comment: ""), style: .default) { action -> Void in
+
+            if let privacyPolicy = self.organisaionDeatils?.organization.privacyPolicy {
+                if self.verifyUrl(urlString: privacyPolicy) {
+                    let safariVC = SFSafariViewController(url: NSURL(string: privacyPolicy)! as URL)
+                    self.present(safariVC, animated: true, completion: nil)
+                    safariVC.delegate = self
+                } else {
+                    self.showWarningAlert(message: Constant.Alert.KPromptMsgNotConfigured)
+                }
+            }
+        }
+
+        let secondAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("User Requests", comment: ""), style: .default) { action -> Void in
+            self.showRequestedStatus()
+        }
+        
+        let thirdAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Consent History", comment: ""), style: .default) { action -> Void in
+            self.showConsentHistory()
+        }
+
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { action -> Void in }
+
+        // add actions
+        actionSheetController.addAction(firstAction)
+        actionSheetController.addAction(secondAction)
+        actionSheetController.addAction(thirdAction)
+        actionSheetController.addAction(cancelAction)
+
+
+        // present an actionSheet...
+        // present(actionSheetController, animated: true, completion: nil)   // doesn't work for iPad
+
+        actionSheetController.popoverPresentationController?.sourceView = moreBtn // works for both iPhone & iPad
+
+        present(actionSheetController, animated: true) {
+            print("option menu presented")
+        }
+        //showPopOver()
     }
     
     @IBAction func allowAllButtonClicked(){

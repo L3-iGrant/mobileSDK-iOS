@@ -35,35 +35,10 @@ struct Constant {
         static let SCREEN_MIN_LENGTH = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
     }
     
-    struct Userinfo {
-        static var currentUser = Userinfo()
-        private var token = "iGrantUserToken"
-        private var userID = "iGrantUserId"
-        var iGrantToken: String {
-            return UserDefaults.standard.value(forKey: token) as? String ?? ""
-        }
-        
-        var iGrantUserID: String {
-            return UserDefaults.standard.value(forKey: userID) as? String ?? "5c18adb05430460001af6250"
-        }
-        
-        func setToken(value: String) {
-            UserDefaults.standard.set(value, forKey: token)
-        }
-        
-        func setUserId(value: String) {
-            UserDefaults.standard.set(value, forKey: userID)
-        }
-        
-        var isUserAvailable: Bool {
-            return UserDefaults.standard.value(forKey: token) != nil
-        }
-        
-        func deleteData() {
-            UserDefaults.standard.removeObject(forKey: token)
-            UserDefaults.standard.removeObject(forKey: userID)
-        }
-    }
+    struct DeviceToken {
+           static let KUserDeviceTokenKey = "UserDeviceToken"
+       }
+       
     //------------------------------------------------------------------------------------------------------------------------------------//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DEVICE TYPE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //------------------------------------------------------------------------------------------------------------------------------------//

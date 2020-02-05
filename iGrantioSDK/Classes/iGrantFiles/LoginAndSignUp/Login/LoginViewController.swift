@@ -11,6 +11,18 @@ import IQKeyboardManagerSwift
 import UserNotifications
 
 let twitterThemeColour = UIColor(red:0, green:0.62, blue:0.95, alpha:1)
+
+class SignUpData: NSObject {
+    var username: String!
+    var fname: String!
+    var lname: String!
+    var title : String!
+    var email : String!
+    var pasword : String!
+    var phone : String!
+    
+}
+
 class LoginViewController: BaseViewController {
 
     @IBOutlet weak var emailTxtContainer: UIView!
@@ -179,7 +191,9 @@ extension LoginViewController:WebServiceTaskManagerProtocol,UITextFieldDelegate{
         }else{
             if let serviceManager = manager as? LoginServiceManager{
                 if serviceManager.serviceType == .Login{
-                    
+                    UserInfo.currentUser()?.userEmail = self.emailTxtFld.text
+                    UserInfo.currentUser()?.userPwd = self.passwordTxtFld.text
+                    UserInfo.currentUser()?.save()
                     showOrgDetail()
                 }
             }

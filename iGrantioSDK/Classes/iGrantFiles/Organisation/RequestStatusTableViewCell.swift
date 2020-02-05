@@ -12,7 +12,8 @@ class RequestStatusTableViewCell: UITableViewCell {
     @IBOutlet weak var statusType: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var statusDetail: UILabel!
-    
+    @IBOutlet weak var cancelButton: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

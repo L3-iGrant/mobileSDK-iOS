@@ -20,6 +20,7 @@ import SwiftyJSON
 
 //demo
 var baseUrl = "https://demo-api.igrant.io/v1/"
+var baseUrl_V1 = "https://demo-api.igrant.io/v1.1/"
 
 class RestResponse : NSObject {
     var response : JSON?
@@ -75,6 +76,14 @@ class BaseWebService: NSObject {
     var header:[String : String]?
     var requestInfo : [String:String]?
     var errorMsg : String?
+    
+    
+    func refreshToken() {
+        let refreshToken : String = (UserInfo.currentUser()?.refreshToken)!
+        self.parameters =  ["clientId": "igrant-ios-app" as AnyObject, "refreshToken": refreshToken as AnyObject]
+        self.url = baseUrl + "user/token"
+        self.POST()
+    }
 
     func failureWithError(error: Error?) {
         let restResponse = RestResponse()
@@ -93,8 +102,8 @@ class BaseWebService: NSObject {
     }
 
     func GET(){
-        if Constant.Userinfo.currentUser.isUserAvailable{
-            let token : String = Constant.Userinfo.currentUser.iGrantToken
+        if UserInfo.currentUser()?.token != nil{
+            let token : String = (UserInfo.currentUser()?.token)!
             let hearDict = ["Authorization":"Bearer \(token)"]
             header = hearDict
         }else{
@@ -137,8 +146,8 @@ class BaseWebService: NSObject {
     
     
     func POST_normal(){
-        if Constant.Userinfo.currentUser.isUserAvailable{
-            let token : String  = Constant.Userinfo.currentUser.iGrantToken
+        if UserInfo.currentUser()?.token != nil{
+            let token : String  = (UserInfo.currentUser()?.token)!
             let hearDict = ["Authorization":"Bearer \(token)"]
             header = hearDict
         }else{
@@ -176,8 +185,8 @@ class BaseWebService: NSObject {
     
     
     func PUT(){
-        if Constant.Userinfo.currentUser.isUserAvailable{
-            let token : String  = Constant.Userinfo.currentUser.iGrantToken
+        if UserInfo.currentUser()?.token != nil{
+            let token : String  = (UserInfo.currentUser()?.token)!
             let hearDict = ["Authorization":"Bearer \(token)"]
             header = hearDict
         }else{
@@ -210,8 +219,8 @@ class BaseWebService: NSObject {
     
     
     func PATCH(){
-        if Constant.Userinfo.currentUser.isUserAvailable{
-            let token : String  = Constant.Userinfo.currentUser.iGrantToken
+        if UserInfo.currentUser()?.token != nil{
+            let token : String  = (UserInfo.currentUser()?.token)!
             let hearDict = ["Authorization":"Bearer \(token)"]
             
             header = hearDict
@@ -245,8 +254,8 @@ class BaseWebService: NSObject {
     
     
     func DELETE(){
-        if Constant.Userinfo.currentUser.isUserAvailable{
-            let token : String  = Constant.Userinfo.currentUser.iGrantToken
+        if UserInfo.currentUser()?.token != nil{
+            let token : String  = (UserInfo.currentUser()?.token)!
             let hearDict = ["Authorization":"Bearer \(token)"]
             header = hearDict
         }else{
@@ -276,8 +285,8 @@ class BaseWebService: NSObject {
     
     
     func upload(data: [MultipartData]) {
-        if Constant.Userinfo.currentUser.isUserAvailable{
-            let token : String  = Constant.Userinfo.currentUser.iGrantToken
+        if UserInfo.currentUser()?.token != nil{
+            let token : String  = (UserInfo.currentUser()?.token)!
             let hearDict = ["Authorization":"Bearer \(token)"]
             header = hearDict
         }else{

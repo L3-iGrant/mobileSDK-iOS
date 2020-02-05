@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showIgrantView(_ sender: Any) {
+        iGrantViewController.shared.modalPresentationStyle = .fullScreen
         iGrantViewController.shared.show(organisationToken: "5c1507365430460001af621a", userToken: "")
     }
     

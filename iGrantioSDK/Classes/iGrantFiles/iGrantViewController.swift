@@ -18,15 +18,19 @@ public class iGrantViewController: UIViewController {
     }
     
     public func show(organisationToken: String, userToken: String) {
-        if Constant.Userinfo.currentUser.isUserAvailable {
+        if UserInfo.restoreSession() {
             let orgVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "OrgDetailedVC") as! OrganisationViewController
             orgVC.organisationId = organisationToken
-            let navigationController = UINavigationController.init(rootViewController: orgVC)
-            UIApplication.topViewController()?.present(navigationController, animated: true, completion: nil)
+            
+            let navVC = UINavigationController.init(rootViewController: orgVC)
+            navVC.modalPresentationStyle = .fullScreen
+            UIApplication.topViewController()?.present(navVC, animated: true, completion: nil)
         } else {
             let loginVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
             let loginNav = UINavigationController.init(rootViewController: loginVC)
             loginVC.orgId = organisationToken
+            loginNav.modalPresentationStyle = .fullScreen
+
             UIApplication.topViewController()?.present(loginNav, animated: true, completion: nil)
         }
     }

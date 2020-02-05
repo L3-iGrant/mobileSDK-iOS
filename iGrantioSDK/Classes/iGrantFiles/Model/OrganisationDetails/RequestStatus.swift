@@ -20,6 +20,7 @@ class RequestStatus{
     var ClosedDate: String!
     var TypeStr: String!
     var type: Int!
+    var isActiveRequest = false
     /**
      * Instantiate the instance using the passed json values to set the properties values
      */

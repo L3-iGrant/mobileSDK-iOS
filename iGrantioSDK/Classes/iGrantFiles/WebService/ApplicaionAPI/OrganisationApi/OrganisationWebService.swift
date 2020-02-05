@@ -22,37 +22,49 @@ class OrganisationWebService: BaseWebService {
     }
     
     func getSubscribedOrgnaisationList(categoryId : String){
-//        var userId  =  ""
-//        if  Constant.Userinfo.currentUser.iGrantUserID != ""{
-//            userId =   Constant.Userinfo.currentUser.iGrantUserID
-//        }
+        
         self.url = baseUrl + "GetUserOrgsAndSuggestionsByType" + "?typeID=" + categoryId
         GET()
     }
     
+    func getSubscribedOrgs(){
+        self.url = baseUrl + "user/organizations"
+        GET()
+    }
+    
     func organisationDetails(orgId : String){
-//        var userId  =  ""
-//        if Constant.Userinfo.currentUser.iGrantUserID != ""{
-//            userId =   Constant.Userinfo.currentUser.iGrantUserID
-//        }
+        var userId  =  ""
+        if  UserInfo.currentUser()?.userID != nil{
+            userId =  (UserInfo.currentUser()?.userID)!
+        }
         self.url = baseUrl + "GetUserOrgsAndConsents" + "?orgID=" + orgId
         GET()
     }
     
-    func addOrganisation(orgId : String){
+    func addOrganisation(orgId : String, subKey: String?){
         var userId  =  ""
-        if Constant.Userinfo.currentUser.iGrantUserID != ""{
-            userId =   Constant.Userinfo.currentUser.iGrantUserID
+        if  UserInfo.currentUser()?.userID != nil{
+            userId =  (UserInfo.currentUser()?.userID)!
         }
         self.url = baseUrl + "organizations/" + orgId + "/users"
-        self.parameters = ["UserID": userId as AnyObject]
+        self.parameters = ["UserID": userId as AnyObject, "SubscribeKey" : subKey ?? ""] as [String : AnyObject]
         POST()
+    }
+    
+    func getOrganisationSubscribeMethod(orgId : String) {
+        var userId  =  ""
+        if  UserInfo.currentUser()?.userID != nil{
+            userId =  (UserInfo.currentUser()?.userID)!
+        }
+        self.url = baseUrl + "organizations/" + orgId + "/subscribe-method"
+        GET()
+        
     }
     
     func removeOrganisation(orgId : String){
         var userId  =  ""
-        if Constant.Userinfo.currentUser.iGrantUserID != "" {
-            userId =   Constant.Userinfo.currentUser.iGrantUserID
+        if  UserInfo.currentUser()?.userID != nil{
+            userId =  (UserInfo.currentUser()?.userID)!
         }
         self.url = baseUrl + "organizations/" + orgId + "/users/" + userId
         DELETE()
@@ -60,8 +72,8 @@ class OrganisationWebService: BaseWebService {
     
     func allowAllConsent(orgId : String){
         var userId  =  ""
-        if Constant.Userinfo.currentUser.iGrantUserID != "" {
-            userId =   Constant.Userinfo.currentUser.iGrantUserID
+        if  UserInfo.currentUser()?.userID != nil{
+            userId =  (UserInfo.currentUser()?.userID)!
         }
         self.url = baseUrl + "UpdateAllConsents/" + userId + "?orgID=" + orgId + "&consented=Disallow"
         POST()
@@ -69,8 +81,8 @@ class OrganisationWebService: BaseWebService {
     
     func searchOrg(input : String,typeId : String?){
         var userId  =  ""
-        if Constant.Userinfo.currentUser.iGrantUserID != "" {
-            userId =   Constant.Userinfo.currentUser.iGrantUserID
+        if  UserInfo.currentUser()?.userID != nil{
+            userId =  (UserInfo.currentUser()?.userID)!
         }
         let urlString = baseUrl + "organizations/" + "search?name=" + input
         if typeId != nil{
@@ -85,8 +97,8 @@ class OrganisationWebService: BaseWebService {
     
     func changeConsent(orgId : String,consentID : String,parameter:[String: AnyObject]){
         var userId  =  ""
-        if Constant.Userinfo.currentUser.iGrantUserID != "" {
-            userId =   Constant.Userinfo.currentUser.iGrantUserID
+        if  UserInfo.currentUser()?.userID != nil{
+            userId =  (UserInfo.currentUser()?.userID)!
         }
         self.url = baseUrl + "organizations/" + orgId + "/users/" + userId + "/consents/" + consentID
         self.parameters = parameter
@@ -112,6 +124,12 @@ class OrganisationWebService: BaseWebService {
         GET()
     }
     
+    func acceptEulaConsent(orgId: String, parameters : [String: AnyObject]) {
+        self.url = baseUrl + "user/organizations/" + orgId + "/eula"
+        self.parameters = parameters
+        POST()
+    }
+    
     func getForgetMeStatus(orgId: String) {
         
         self.url = baseUrl + "user/organizations/" + orgId + "/data-delete/status"
@@ -120,11 +138,11 @@ class OrganisationWebService: BaseWebService {
     
     func cancelRequest(orgId: String, requestID: String, type: RequestType) {
         if type == RequestType.DownloadData {
-            self.url = baseUrl + "user/organizations/" + orgId + "/data-download/" + requestID + "/cancel"
+             self.url = baseUrl + "user/organizations/" + orgId + "/data-download/" + requestID + "/cancel"
         } else {
             self.url = baseUrl + "user/organizations/" + orgId + "/data-delete/" + requestID + "/cancel"
         }
-        POST()
+       POST()
     }
     
     func getRequestedStatus(orgId: String) {
@@ -132,5 +150,8 @@ class OrganisationWebService: BaseWebService {
         GET()
     }
     
-    
+    func requestedStatusLoadMore(apiUrl : String){
+        self.url = apiUrl
+        GET()
+    }
 }
