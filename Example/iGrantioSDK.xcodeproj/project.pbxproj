@@ -575,6 +575,7 @@
 			baseConfigurationReference = 25C199648F1316681ECE164E /* Pods-iGrantioSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y9726WB7V8;
 				INFOPLIST_FILE = iGrantioSDK/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -593,6 +594,7 @@
 			baseConfigurationReference = 707F59D2F5B55734AF57A306 /* Pods-iGrantioSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y9726WB7V8;
 				INFOPLIST_FILE = iGrantioSDK/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
