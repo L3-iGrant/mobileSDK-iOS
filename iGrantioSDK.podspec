@@ -27,11 +27,10 @@ Pod::Spec.new do |s|
 
 s.ios.deployment_target = '10.0'
 
-s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift}'
+s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift,storyboard}'
 s.swift_version = '4.2'
 s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
-'PopView' => ['iGrantioSDK/Classes/iGrantFiles/Organisation/PopOverView.xib'],
 'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard']
 }
 #s.resources = 'iGrantioSDK/Assets/**/*.png'
