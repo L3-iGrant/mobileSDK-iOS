@@ -37,7 +37,7 @@ s.resources = 'iGrantioSDK/iGrant.xcassets'
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
 s.frameworks = 'UIKit' , 'SafariServices'
-s.dependency 'Alamofire'
+s.dependency 'Alamofire', '4.9.1'
 s.dependency 'SwiftyJSON'
 s.dependency 'MBProgressHUD'
 s.dependency 'SkyFloatingLabelTextField', '~> 3.0'
@@ -48,7 +48,6 @@ s.dependency 'StepProgressView'
 s.dependency 'SDStateTableView'
 s.dependency 'SwiftEntryKit'
 s.dependency 'AFDateHelper'
-
 
 #s.dependency "Popover"
 s.dependency 'Toast-Swift'
