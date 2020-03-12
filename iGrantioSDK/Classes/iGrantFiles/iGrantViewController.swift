@@ -11,6 +11,7 @@ import UIKit
 public class iGrantViewController: UIViewController {
 
     public static var shared = iGrantViewController()
+    var orgId: String?
     override public func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.resetToLoginScreen), name: Notification.Name("ResetToLogin"), object: nil)
@@ -18,11 +19,11 @@ public class iGrantViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func resetToLoginScreen() {
+    @objc func resetToLoginScreen() {
         UIApplication.topViewController()?.dismiss(animated: false, completion: {
             let loginVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
             let loginNav = UINavigationController.init(rootViewController: loginVC)
-            loginVC.orgId = organisationToken
+            loginVC.orgId = self.orgId ?? ""
             loginNav.modalPresentationStyle = .fullScreen
 
             UIApplication.topViewController()?.present(loginNav, animated: true, completion: nil)
@@ -30,6 +31,7 @@ public class iGrantViewController: UIViewController {
     }
     
     public func show(organisationToken: String, userToken: String) {
+        orgId = organisationToken
         if UserInfo.restoreSession() {
             let orgVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "OrgDetailedVC") as! OrganisationViewController
             orgVC.organisationId = organisationToken
