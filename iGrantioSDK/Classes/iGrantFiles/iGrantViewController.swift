@@ -13,8 +13,20 @@ public class iGrantViewController: UIViewController {
     public static var shared = iGrantViewController()
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.resetToLoginScreen), name: Notification.Name("ResetToLogin"), object: nil)
+
         // Do any additional setup after loading the view.
+    }
+    
+    func resetToLoginScreen() {
+        UIApplication.topViewController()?.dismiss(animated: false, completion: {
+            let loginVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
+            let loginNav = UINavigationController.init(rootViewController: loginVC)
+            loginVC.orgId = organisationToken
+            loginNav.modalPresentationStyle = .fullScreen
+
+            UIApplication.topViewController()?.present(loginNav, animated: true, completion: nil)
+        })
     }
     
     public func show(organisationToken: String, userToken: String) {

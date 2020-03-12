@@ -291,7 +291,8 @@ extension OrganisationWebServiceManager : BaseServiceDelegates {
     
     func didFailedToReceiveData(response:RestResponse?){
         if response?.message == Constant.AppSetupConstant.KTokenExpired{
-            self.refreshToken()
+            NotificationCenter.default.post(name: Notification.Name("ResetToLogin"), object: nil)
+            //self.refreshToken()
         }else{
             self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: response?.message))
         }
