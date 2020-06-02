@@ -24,6 +24,7 @@ class ConsentViewController: BaseViewController {
     var consentID : String = ""
     
     var purposeID : String = ""
+    var purposeName : String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()

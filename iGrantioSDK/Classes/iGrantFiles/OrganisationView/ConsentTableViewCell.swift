@@ -10,6 +10,7 @@
 import UIKit
 
 class ConsentTableViewCell: UITableViewCell {
+    @IBOutlet weak var rightArrow: UIImageView!
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var dataLbl: UILabel!
     @IBOutlet weak var consentTypeLbl: UILabel!

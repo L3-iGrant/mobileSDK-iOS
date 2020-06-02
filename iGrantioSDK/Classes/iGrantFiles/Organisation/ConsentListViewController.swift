@@ -7,34 +7,37 @@
 //
 
 import UIKit
+import ExpandableLabel
 
 class ConsentListViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var policyBtn: UIButton!
+    // @IBOutlet weak var policyBtn: UIButton!
     @IBOutlet weak var disAllowAllBtn: UIButton!
     @IBOutlet  var disAllowAllBtnHeightCostrint: NSLayoutConstraint!
-
-
+    var overViewCollpased = true
+    // @IBOutlet weak var HeaderView: UIView!
+    
+    //  @IBOutlet weak var descriptionLabel: ExpandableLabel!
     var organisaionDeatils : OrganisationDetails?
     var purposeInfo : Purpose?
     var consentslist : [ConsentDetails]?
     var consentslistInfo : ConsentListingResponse?
     var isNeedToRefresh = false
-
+    var isFromQR = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.title = purposeInfo?.descriptionField
+        self.title = purposeInfo?.name
+        //  self.descriptionLabel.delegate = self
+        //  self.descriptionLabel.text = //purposeInfo?.descriptionField
         tableView.tableFooterView = UIView()
-        policyBtn.showRoundCorner(roundCorner: 3.0)
-        policyBtn.layer.borderColor = UIColor(red:0.62, green:0.62, blue:0.62, alpha:1).cgColor
-        policyBtn.layer.borderWidth = 0.5
         addRefershNotification()
         callConsentListApi()
         manageDisallowButton()
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,7 +46,6 @@ class ConsentListViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         managePolicyButton()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,11 +55,11 @@ class ConsentListViewController: BaseViewController {
             callConsentListApi()
         }
     }
-
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     
@@ -71,18 +73,10 @@ class ConsentListViewController: BaseViewController {
     
     
     func managePolicyButton(){
-        if let url = self.consentslistInfo?.consents.purpose.policyURL{
-            if url.isValidString{
-               policyBtn.isHidden = false
-            }else{
-                policyBtn.isHidden = true
-            }
-        }else{
-            policyBtn.isHidden = true
-        }
+        self.tableView.reloadData()
     }
-   
-    func manageDisallowButton(){
+    
+    func manageDisallowButton() {
         
         if self.consentslistInfo?.consents.purpose.lawfulUsage == false{
             if consentslistInfo?.consents.count.consented != nil{
@@ -98,7 +92,6 @@ class ConsentListViewController: BaseViewController {
             disAllowAllBtn.isHidden = true
             disAllowAllBtnHeightCostrint.constant = 0
         }
-       
     }
     
     @objc func consentValueModified(){
@@ -108,14 +101,14 @@ class ConsentListViewController: BaseViewController {
     @IBAction func policyBtnClicked(){
         if let url = self.consentslistInfo?.consents.purpose.policyURL{
             if url.isValidString{
-                let webviewVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "WebViewVC") as! WebViewViewController
+                let webviewVC = self.storyboard?.instantiateViewController(withIdentifier: "WebViewVC") as! WebViewViewController
                 webviewVC.urlString = url
                 self.navigationController?.pushViewController(webviewVC, animated: true)
             }else{
                 self.showErrorAlert(message: "Invalid URL")
             }
         }
-
+        
     }
     
     @IBAction func disallowallBtnClicked(){
@@ -144,11 +137,11 @@ class ConsentListViewController: BaseViewController {
         self.addLoadingIndicator()
         let serviceManager = OrganisationWebServiceManager()
         serviceManager.managerDelegate = self
-        let value = "DisAllow"
+        let value = "Disallow"
         NotificationCenter.default.post(name: .consentChange, object: nil)
         serviceManager.updatePurpose(orgId: (self.organisaionDeatils?.organization.iD)!, consentID:  (self.organisaionDeatils?.consentID)!, attributeId: "", purposeId: (purposeInfo?.iD)!, status: value)
     }
-   
+    
 }
 
 extension ConsentListViewController:WebServiceTaskManagerProtocol{
@@ -163,7 +156,7 @@ extension ConsentListViewController:WebServiceTaskManagerProtocol{
         
         if let serviceManager = manager as? OrganisationWebServiceManager{
             if serviceManager.serviceType == .AllowAlConsent{
-//                self.callOrganisationDetailsApi()
+                //                self.callOrganisationDetailsApi()
             }
             else if serviceManager.serviceType == .UpdatePurpose{
                 disAllowAllBtn.isHidden = true
@@ -173,7 +166,7 @@ extension ConsentListViewController:WebServiceTaskManagerProtocol{
         }
         
         if let data = response.data?.responseModel as? ConsentListingResponse {
-           self.consentslistInfo = data
+            self.consentslistInfo = data
             self.consentslist = data.consents.consentslist
             self.tableView.reloadData()
             manageDisallowButton()
@@ -192,19 +185,89 @@ extension  ConsentListViewController : UITableViewDelegate,UITableViewDataSource
         if consentslist == nil{
             return 0
         }else{
+            if section == 0 {
+                return 2
+            }
             return (consentslist?.count)!
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return UITableView.automaticDimension
+        }
         return 70
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0:
+                let orgOverViewCell = tableView.dequeueReusableCell(withIdentifier: Constant.CustomTabelCell.KOrgDetailedOverViewCellID, for: indexPath) as! OrgOverViewTableViewCell
+                //                orgOverViewCell.overViewLbl.text = organisaionDeatils?.organization?.descriptionField
+                
+                orgOverViewCell.overViewLbl.delegate = self
+                orgOverViewCell.layoutIfNeeded()
+                orgOverViewCell.overViewLbl.shouldCollapse = true
+                
+                if overViewCollpased == true {
+                    //                    orgOverViewCell.overViewLbl.collapsed = overViewCollpased
+                    //                    orgOverViewCell.overViewLbl.numberOfLines = 3
+                    orgOverViewCell.overViewLbl.collapsed = true
+                    
+                } else {
+                    orgOverViewCell.overViewLbl.collapsed = false
+                    //                    orgOverViewCell.overViewLbl.numberOfLines = 0
+                }
+                orgOverViewCell.overViewLbl.textReplacementType = .word
+                if self.consentslistInfo?.consents.purpose.descriptionField != nil {
+                    let desc = (self.consentslistInfo?.consents.purpose.descriptionField)!
+                    orgOverViewCell.overViewLbl.text = desc
+                   //desc
+                    //                    orgOverViewCell.overViewLbl.setHTMLFromString(text: "Aksjdh khaksjdh ksa dkhksadh  khadkjhsa kd kahsdkjashd kah dskh sakdh \n askdh kasd kadkhsakjdh ksajhd  kahsdkhsakjdhksa hdksha kdhaskj d \n \n akdhskjdhkasdh kasdhkjashdkjhsa dkashdkjsad ksahdkjashd ksa hdksa ksahdkjsahdkjsahdkjhsakjdhkasjhdkjsahd ksajhdksah dkhsakjdh ksajdksah dksadkhskajhd kjsahdkshakd h kashdk\n dashgdashgdgsadggasdgj")
+                    //                    orgOverViewCell.overViewLbl.text = "Aksjdh khaksjdh ksa dkhksadh  khadkjhsa kd kahsdkjashd kah dskh sakdh \n askdh kasd kadkhsakjdh ksajhd  kahsdkhsakjdhksa hdksha kdhaskj d \n \n akdhskjdhkasdh kasdhkjashdkjhsa dkashdkjsad ksahdkjashd ksa hdksa ksahdkjsahdkjsahdkjhsakjdhkasjhdkjsahd ksajhdksah dkhsakjdh ksajdksah dksadkhskajhd kjsahdkshakd h kashdk\n dashgdashgdgsadggasdgj"
+                    //                    cell.descriptionLbl.from(html: desc)
+                }
+                return orgOverViewCell
+            default:
+                let consentHeaderCell = tableView.dequeueReusableCell(withIdentifier:"ConsentHeaderTableViewCell",for: indexPath) as! ConsentHeaderTableViewCell
+                
+                if let url = self.consentslistInfo?.consents.purpose.policyURL{
+                    if url.isValidString{
+                        consentHeaderCell.policyButton.isHidden = false
+                    }else{
+                        consentHeaderCell.policyButton.isHidden = true
+                    }
+                }else{
+                    consentHeaderCell.policyButton.isHidden = true
+                }
+                consentHeaderCell.policyButton.showRoundCorner(roundCorner: 3.0)
+                consentHeaderCell.policyButton.layer.borderColor = UIColor(red:0.62, green:0.62, blue:0.62, alpha:1).cgColor
+                consentHeaderCell.policyButton.layer.borderWidth = 0.5
+                consentHeaderCell.policyButton.addTarget(self, action: #selector(policyBtnClicked), for: .touchUpInside)
+                return consentHeaderCell
+                
+            }
+        }
+        
+        
         let consentCell = tableView.dequeueReusableCell(withIdentifier:"ConsentCell",for: indexPath) as! ConsentTableViewCell
         consentCell.consentInfo = consentslist?[indexPath.row]
         consentCell.showData()
+        if isFromQR {
+            consentCell.consentTypeLbl.text =  NSLocalizedString("Allow", comment: "")
+            //consentCell.rightArrow.isHidden = true
+        }
         if self.consentslistInfo?.consents.purpose.lawfulUsage == false{
             
         }else {
@@ -215,14 +278,38 @@ extension  ConsentListViewController : UITableViewDelegate,UITableViewDataSource
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        if self.consentslistInfo?.consents.purpose.lawfulUsage == false{
-            let consentVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "ConsentVC") as! ConsentViewController
-            consentVC.consent = consentslist?[indexPath.row]
-            consentVC.orgID = self.consentslistInfo?.orgID
-            consentVC.purposeDetails = self.consentslistInfo
-            self.navigationController?.pushViewController(consentVC, animated: true)
+        if indexPath.section == 1 {
+            if self.consentslistInfo?.consents.purpose.lawfulUsage == false && !isFromQR{
+                let consentVC = self.storyboard?.instantiateViewController(withIdentifier: "ConsentVC") as! ConsentViewController
+                consentVC.consent = consentslist?[indexPath.row]
+                consentVC.orgID = self.consentslistInfo?.orgID
+                consentVC.purposeDetails = self.consentslistInfo
+                consentVC.purposeName = self.purposeInfo?.name ?? ""
+                self.navigationController?.pushViewController(consentVC, animated: true)
+            }
         }
     }
     
 }
 
+extension ConsentListViewController:ExpandableLabelDelegate{
+    func willExpandLabel(_ label: ExpandableLabel) {
+        //        label.collapsed = false
+        overViewCollpased = false
+        tableView.reloadData()
+    }
+    
+    func didExpandLabel(_ label: ExpandableLabel) {
+    }
+    
+    func willCollapseLabel(_ label: ExpandableLabel) {
+    }
+    
+    func didCollapseLabel(_ label: ExpandableLabel) {
+        //        label.collapsed = true
+        overViewCollpased = true
+        tableView.reloadData()
+    }
+    
+    
+}

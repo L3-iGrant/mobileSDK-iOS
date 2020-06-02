@@ -40,7 +40,7 @@ class UsagePurposeTableViewCell: UITableViewCell {
 //            self.statusSwitch.isOn = false
             self.statusSwitch.isEnabled = true
         }
-        self.titleLbl.text = self.consentInfo?.purpose.descriptionField
+        self.titleLbl.text = self.consentInfo?.purpose.name
         if let consented = self.consentInfo?.count.consented {
             var valueString = "Allow "
             
