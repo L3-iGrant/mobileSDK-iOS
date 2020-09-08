@@ -35,10 +35,8 @@ public class iGrantViewController: UIViewController {
     public func show(organisationToken: String, userToken: String) {
         orgId = organisationToken
         if(!userToken.isEmpty){
-            let token: String = userToken
             let data = userToken.data(using: .utf8) ?? Data()
-            let status = KeyChain.save(key: "iGrantioToken", data: data)
-           
+            _ = KeyChain.save(key: "iGrantioToken", data: data)
                        orgVC.organisationId = organisationToken
                        
                        let navVC = UINavigationController.init(rootViewController: orgVC)

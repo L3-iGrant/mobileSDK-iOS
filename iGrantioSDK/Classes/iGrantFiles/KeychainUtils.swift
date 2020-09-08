@@ -50,8 +50,12 @@ class KeyChain {
 extension Data {
 
     init<T>(from value: T) {
-        var value = value
-        self.init(buffer: UnsafeBufferPointer(start: &value, count: 1))
+         var value = value
+           var myData = Data()
+           withUnsafePointer(to:&value, { (ptr: UnsafePointer<T>) -> Void in
+               myData = Data( buffer: UnsafeBufferPointer(start: ptr, count: 1))
+           })
+           self.init(myData)
     }
 
     func to<T>(type: T.Type) -> T {
