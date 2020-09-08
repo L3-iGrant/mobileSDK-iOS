@@ -58,9 +58,15 @@ class OrgImageTableViewCell: UITableViewCell {
         self.nameLbl.text = self.orgData?.name
         self.locationLbl.text = self.orgData?.location
         if let imageUrl = self.orgData?.coverImageURL{
-            let headers = [
+            var headers = [
                 "Authorization": "Bearer \(UserInfo.currentUser()?.token ?? "")"
             ]
+            
+            if let tokendata = KeyChain.load(key: "iGrantioToken") {
+                       let token = String(data: tokendata, encoding: .utf8) ?? ""
+                       let hearDict = ["Authorization":"ApiKey \(token)"]
+                       headers = hearDict
+                   }
             
             let request = NSMutableURLRequest(url: imageUrl,
                                               cachePolicy: .useProtocolCachePolicy,
@@ -86,10 +92,16 @@ class OrgImageTableViewCell: UITableViewCell {
             dataTask.resume()
         }
         if let imageUrl = self.orgData?.logoImageURL{
-            let headers = [
+            var headers = [
                 "Authorization": "Bearer \(UserInfo.currentUser()?.token ?? "")"
             ]
             
+            if let tokendata = KeyChain.load(key: "iGrantioToken") {
+                                 let token = String(data: tokendata, encoding: .utf8) ?? ""
+                                 let hearDict = ["Authorization":"ApiKey \(token)"]
+                                 headers = hearDict
+                             }
+                      
             let request = NSMutableURLRequest(url: imageUrl,
                                               cachePolicy: .useProtocolCachePolicy,
                                               timeoutInterval: 10.0)
