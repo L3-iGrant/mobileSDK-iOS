@@ -12,8 +12,10 @@ public class iGrantViewController: UIViewController {
 
     public static var shared = iGrantViewController()
     var orgId: String?
+    var orgVC: OrganisationViewController!
     override public func viewDidLoad() {
         super.viewDidLoad()
+        orgVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "OrgDetailedVC") as? OrganisationViewController
         NotificationCenter.default.addObserver(self, selector: #selector(self.resetToLoginScreen), name: Notification.Name("ResetToLogin"), object: nil)
 
         // Do any additional setup after loading the view.
@@ -32,6 +34,19 @@ public class iGrantViewController: UIViewController {
     
     public func show(organisationToken: String, userToken: String) {
         orgId = organisationToken
+        if(!userToken.isEmpty){
+            let token: String = userToken
+            let data = userToken.data(using: .utf8) ?? Data()
+            let status = KeyChain.save(key: "iGrantioToken", data: data)
+           
+                       orgVC.organisationId = organisationToken
+                       
+                       let navVC = UINavigationController.init(rootViewController: orgVC)
+                       navVC.modalPresentationStyle = .fullScreen
+                       UIApplication.topViewController()?.present(navVC, animated: true, completion: nil)
+            return;
+        }
+        
         if UserInfo.restoreSession() {
             let orgVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "OrgDetailedVC") as! OrganisationViewController
             orgVC.organisationId = organisationToken
@@ -49,7 +64,11 @@ public class iGrantViewController: UIViewController {
         }
     }
     
-
+    public func iGrantRegisterForPushNotification (deviceToken: String){
+        let serviceManager = LoginServiceManager()
+        serviceManager.updateDeviceToken(deviceToken: deviceToken)
+    }
+    
     /*
     // MARK: - Navigation
 

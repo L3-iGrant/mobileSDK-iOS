@@ -110,6 +110,12 @@ class BaseWebService: NSObject {
             header = nil
         }
         
+        if let tokendata = KeyChain.load(key: "iGrantioToken") {
+            let token = String(data: tokendata, encoding: .utf8) ?? ""
+            let hearDict = ["Authorization":"ApiKey \(token)"]
+            header = hearDict
+        }
+        
         Alamofire.request(url!, parameters: parameters, headers:header)
             .validate()
             .responseJSON {response in
@@ -153,6 +159,13 @@ class BaseWebService: NSObject {
         }else{
             header = nil
         }
+        
+        if let tokendata = KeyChain.load(key: "iGrantioToken") {
+                   let token = String(data: tokendata, encoding: .utf8) ?? ""
+                   let hearDict = ["Authorization":"ApiKey \(token)"]
+                   header = hearDict
+               }
+        
         if serviceType == .ReCallLogin{
             header = nil
         }
@@ -192,6 +205,13 @@ class BaseWebService: NSObject {
         }else{
             header = nil
         }
+        
+         if let tokendata = KeyChain.load(key: "iGrantioToken") {
+                   let token = String(data: tokendata, encoding: .utf8) ?? ""
+                   let hearDict = ["Authorization":"ApiKey \(token)"]
+                   header = hearDict
+               }
+        
         Alamofire.request(url!, method: .put, parameters: parameters,  encoding: JSONEncoding.default, headers:header)
             .validate()
             .responseJSON {response in
@@ -226,6 +246,12 @@ class BaseWebService: NSObject {
             header = hearDict
         }else{
         }
+        if let tokendata = KeyChain.load(key: "iGrantioToken") {
+                   let token = String(data: tokendata, encoding: .utf8) ?? ""
+                   let hearDict = ["Authorization":"ApiKey \(token)"]
+                   header = hearDict
+               }
+        
         Alamofire.request(url!, method: .patch, parameters: parameters, encoding: JSONEncoding.default,headers:header
             )
             .validate()
@@ -261,6 +287,12 @@ class BaseWebService: NSObject {
         }else{
             header = nil
         }
+        if let tokendata = KeyChain.load(key: "iGrantioToken") {
+                   let token = String(data: tokendata, encoding: .utf8) ?? ""
+                   let hearDict = ["Authorization":"ApiKey \(token)"]
+                   header = hearDict
+               }
+        
         Alamofire.request(url!, method: .delete, headers:header)
             .validate()
             .responseJSON {response in
@@ -292,6 +324,12 @@ class BaseWebService: NSObject {
         }else{
             header = nil
         }
+        if let tokendata = KeyChain.load(key: "iGrantioToken") {
+                   let token = String(data: tokendata, encoding: .utf8) ?? ""
+                   let hearDict = ["Authorization":"ApiKey \(token)"]
+                   header = hearDict
+               }
+        
         let urlRequest = try! URLRequest(url: url!, method: .post, headers: header)
         Alamofire.upload(
             multipartFormData: { multipartFormData in
