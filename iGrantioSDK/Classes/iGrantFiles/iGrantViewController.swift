@@ -12,13 +12,16 @@ public class iGrantViewController: UIViewController {
 
     public static var shared = iGrantViewController()
     var orgId: String?
-    var orgVC: OrganisationViewController!
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
-        orgVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "OrgDetailedVC") as? OrganisationViewController
         NotificationCenter.default.addObserver(self, selector: #selector(self.resetToLoginScreen), name: Notification.Name("ResetToLogin"), object: nil)
 
         // Do any additional setup after loading the view.
+    }
+    
+    func getOrgVC() -> OrganisationViewController{
+        return Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "OrgDetailedVC") as? OrganisationViewController ?? OrganisationViewController()
     }
     
     @objc func resetToLoginScreen() {
@@ -37,6 +40,7 @@ public class iGrantViewController: UIViewController {
         if(!userToken.isEmpty){
             let data = userToken.data(using: .utf8) ?? Data()
             _ = KeyChain.save(key: "iGrantioToken", data: data)
+            let orgVC = getOrgVC()
                        orgVC.organisationId = organisationToken
                        
                        let navVC = UINavigationController.init(rootViewController: orgVC)
