@@ -19,6 +19,11 @@ class LoginWebService: BaseWebService {
         POST()
     }
     
+    func getUserInfo(){
+      self.url = baseUrl + "user"
+      GET()
+      }
+    
     func generateOtpService(){
         self.url = baseUrl + "users/verify/phone"
         POST()

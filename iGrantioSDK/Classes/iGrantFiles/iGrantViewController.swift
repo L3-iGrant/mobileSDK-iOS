@@ -38,8 +38,11 @@ public class iGrantViewController: UIViewController {
     public func show(organisationToken: String, userToken: String) {
         orgId = organisationToken
         if(!userToken.isEmpty){
+            let serviceManager = LoginServiceManager()
+            serviceManager.getUserDetails()
             let data = userToken.data(using: .utf8) ?? Data()
             _ = KeyChain.save(key: "iGrantioToken", data: data)
+            
             let orgVC = getOrgVC()
                        orgVC.organisationId = organisationToken
                        
