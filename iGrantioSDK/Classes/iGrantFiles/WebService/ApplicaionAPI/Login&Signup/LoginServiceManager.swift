@@ -19,6 +19,7 @@ enum LoginServiceType {
     case VerifyOTP
     case UpdateDeviceToken
     case getUserInfo
+
 }
 
 class LoginServiceManager: BaseWebServiceManager {
@@ -40,6 +41,15 @@ class LoginServiceManager: BaseWebServiceManager {
         }
     }
     
+    func getUserDetails(){
+              self.serviceType = .getUserInfo
+              DispatchQueue.global().async{
+                  let loginService = LoginWebService()
+                  loginService.delegate = self
+                  loginService.getUserInfo()
+              }
+          }
+    
     func forgotPasswordService(email:String){
         self.serviceType = .Login
         DispatchQueue.global().async{
@@ -59,6 +69,7 @@ class LoginServiceManager: BaseWebServiceManager {
             loginService.parameters =  ["devicetoken": deviceToken as AnyObject]
             loginService.updateDeviceToken()
         }
+        
     }
     
     
@@ -81,15 +92,6 @@ class LoginServiceManager: BaseWebServiceManager {
             loginService.forgotPasswordSerivce()
         }
     }
-    
-    func getUserDetails(){
-           self.serviceType = .getUserInfo
-           DispatchQueue.global().async{
-               let loginService = LoginWebService()
-               loginService.delegate = self
-               loginService.getUserInfo()
-           }
-       }
     
     func validatePhoneNumber(phone:String){
         self.serviceType = .ValidPhoneNumber
@@ -203,7 +205,8 @@ extension LoginServiceManager : BaseServiceDelegates {
                     case .GenarateOTP : self.handleOTPGenerationResponse(response: response)
                     case .VerifyOTP : self.handleEmailValidatioResponse(response: response)
                     case .UpdateDeviceToken :self.handleDeviceTokenUpdateResponse(response: response)
-                case .getUserInfo: self.handleUserInfoResponse(response: response)
+                    case .getUserInfo: self.handleUserInfoResponse(response: response)
+
                 }
             }
         }
@@ -222,35 +225,15 @@ extension LoginServiceManager {
         let responseData = response!.response!
         DispatchQueue.global().async {
             UserInfo.createSessionWith(json: responseData)
-//
 //            UserInfo.currentUser()?.userEmail = AppSharedData.sharedInstance.email
 //            UserInfo.currentUser()?.userPwd = AppSharedData.sharedInstance.password
-            if UserInfo.currentUser()?.isSavedPassword == nil {
-                UserInfo.currentUser()?.isSavedPassword = 1
-            }
+            UserInfo.currentUser()?.isSavedPassword = 1
             UserInfo.currentUser()?.save()
             DispatchQueue.main.async {
                 self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
             }
         }
     }
-    
-    func handleUserInfoResponse(response:RestResponse?){
-            let responseData = response!.response!
-            DispatchQueue.global().async {
-                UserInfo.createSessionWith(json: responseData)
-    //
-    //            UserInfo.currentUser()?.userEmail = AppSharedData.sharedInstance.email
-    //            UserInfo.currentUser()?.userPwd = AppSharedData.sharedInstance.password
-                if UserInfo.currentUser()?.isSavedPassword == nil {
-                    UserInfo.currentUser()?.isSavedPassword = 1
-                }
-                UserInfo.currentUser()?.save()
-                DispatchQueue.main.async {
-                    self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
-                }
-            }
-        }
     
     func handleFogotPasswordResponse(response:RestResponse?){
         let responseData = response!.response!
@@ -263,6 +246,23 @@ extension LoginServiceManager {
             }
         }
     }
+    
+    func handleUserInfoResponse(response:RestResponse?){
+               let responseData = response!.response!
+               DispatchQueue.global().async {
+                   UserInfo.createSessionWith(json: responseData)
+       //
+       //            UserInfo.currentUser()?.userEmail = AppSharedData.sharedInstance.email
+       //            UserInfo.currentUser()?.userPwd = AppSharedData.sharedInstance.password
+                   if UserInfo.currentUser()?.isSavedPassword == nil {
+                       UserInfo.currentUser()?.isSavedPassword = 1
+                   }
+                   UserInfo.currentUser()?.save()
+                   DispatchQueue.main.async {
+                       self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+                   }
+               }
+           }
     
     func handleSignupResponse(response:RestResponse?){
         let responseData = response!.response!
@@ -332,11 +332,7 @@ extension LoginServiceManager {
     }
     
     func handleChangePasswordResponse(response:RestResponse?){
-        
-        customKeychainWrapperInstance.set(newPassword, forKey: "password")
-        let responseData = response!.response!
         DispatchQueue.global().async {
-            
             DispatchQueue.main.async {
                 self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
             }
@@ -351,7 +347,7 @@ extension LoginServiceManager {
                   UserInfo.currentUser()?.userName = data
                 }
                 if let data = userData["Email"]?.string{
-                    customKeychainWrapperInstance.set(data, forKey: "email")
+                    UserInfo.currentUser()?.userEmail = data
                 }
                 if let data = userData["ImageURL"]?.string{
                     UserInfo.currentUser()?.imageUrl = data
@@ -381,7 +377,4 @@ extension LoginServiceManager {
         }
     }
     
-    
 }
-
-
