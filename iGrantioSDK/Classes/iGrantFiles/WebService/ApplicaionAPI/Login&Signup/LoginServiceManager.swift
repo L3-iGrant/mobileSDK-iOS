@@ -248,8 +248,9 @@ extension LoginServiceManager {
     }
     
     func handleUserInfoResponse(response:RestResponse?){
-               let responseData = response!.response!
+        var responseData = response!.response!
                DispatchQueue.global().async {
+                responseData["Token"] = ["access_token" : ""]
                    UserInfo.createSessionWith(json: responseData)
        //
        //            UserInfo.currentUser()?.userEmail = AppSharedData.sharedInstance.email
