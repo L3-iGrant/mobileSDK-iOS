@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iGrantioSDK'
-  s.version          = '0.6.8'
+  s.version          = '0.7.0'
   s.summary          = 'will add'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 s.ios.deployment_target = '10.0'
 
 s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift,storyboard}'
-s.swift_version = '4.2'
+s.swift_version = '5.0'
 s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
 'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard']
