@@ -116,15 +116,15 @@ class BaseWebService: NSObject {
             header = hearDict
         }
         
-        Alamofire.request(url!, parameters: parameters, headers:header)
+        AF.request(url!, parameters: parameters, headers:HTTPHeaders.init(header ?? [:]))
             .validate()
             .responseJSON {response in
                 switch response.result{
-                case .success:
-                    if let val = response.result.value {
-                        let json = JSON(val)
+                case .success(let value):
+//                    if let val = response.result.value {
+                        let json = JSON(value)
                         self.successWithResponse(response: json)
-                    }
+//                    }
                 case .failure(let error):
                     if let data = response.data, let utf8Text = String.init(data: data, encoding: String.Encoding.utf8) {
                         print("Data: \(utf8Text)")
@@ -169,15 +169,15 @@ class BaseWebService: NSObject {
         if serviceType == .ReCallLogin{
             header = nil
         }
-        Alamofire.request(url!, method: .post, parameters: parameters, encoding: JSONEncoding.default , headers:header)
+        AF.request(url!, method: .post, parameters: parameters, encoding: JSONEncoding.default , headers:HTTPHeaders.init(header ?? [:]))
             .validate()
             .responseJSON {response in
                 switch response.result{
-                case .success:
-                    if let val = response.result.value {
-                        let json = JSON(val)
+                case .success(let value):
+//                    if let val = response.result.value {
+                        let json = JSON(value)
                         self.successWithResponse(response: json)
-                    }
+//                    }
                 case .failure(let error):
                     if let data = response.data, let utf8Text = String.init(data: data, encoding: String.Encoding.utf8) {
                         print("Data: \(utf8Text)")
@@ -212,15 +212,15 @@ class BaseWebService: NSObject {
                    header = hearDict
                }
         
-        Alamofire.request(url!, method: .put, parameters: parameters,  encoding: JSONEncoding.default, headers:header)
+        AF.request(url!, method: .put, parameters: parameters,  encoding: JSONEncoding.default, headers:HTTPHeaders.init(header ?? [:]))
             .validate()
             .responseJSON {response in
                 switch response.result{
-                case .success:
-                    if let val = response.result.value {
-                        let json = JSON(val)
+                case .success(let value):
+//                    if let val = response.result.value {
+                        let json = JSON(value)
                         self.successWithResponse(response: json)
-                    }
+//                    }
                 case .failure(let error):
                     if let data = response.data, let utf8Text = String.init(data: data, encoding: String.Encoding.utf8) {
                         print("Data: \(utf8Text)")
@@ -252,16 +252,16 @@ class BaseWebService: NSObject {
                    header = hearDict
                }
         
-        Alamofire.request(url!, method: .patch, parameters: parameters, encoding: JSONEncoding.default,headers:header
+        AF.request(url!, method: .patch, parameters: parameters, encoding: JSONEncoding.default,headers:HTTPHeaders.init(header ?? [:])
             )
             .validate()
             .responseJSON {response in
                 switch response.result{
-                case .success:
-                    if let val = response.result.value {
-                        let json = JSON(val)
+                case .success(let value):
+//                    if let val = response.result.value {
+                        let json = JSON(value)
                         self.successWithResponse(response: json)
-                    }
+//                    }
                 case .failure(let error):
                     if let data = response.data, let utf8Text = String.init(data: data, encoding: String.Encoding.utf8) {
                         print("Data: \(utf8Text)")
@@ -293,15 +293,15 @@ class BaseWebService: NSObject {
                    header = hearDict
                }
         
-        Alamofire.request(url!, method: .delete, headers:header)
+        AF.request(url!, method: .delete, headers:HTTPHeaders.init(header ?? [:]))
             .validate()
             .responseJSON {response in
                 switch response.result{
-                case .success:
-                    if let val = response.result.value {
-                        let json = JSON(val)
+                case .success(let value):
+//                    if let val = value {
+                        let json = JSON(value as Any)
                         self.successWithResponse(response: json)
-                    }
+//                    }
                 case .failure(let error):
                     let json = JSON(response.data as Any)
                     if let errormsg = json["error_description"].string{
@@ -330,32 +330,54 @@ class BaseWebService: NSObject {
                    header = hearDict
                }
         
-        let urlRequest = try! URLRequest(url: url!, method: .post, headers: header)
-        Alamofire.upload(
-            multipartFormData: { multipartFormData in
-                for (key,value) in self.parameters {
-                    if let valueString = value as? String {
-                        multipartFormData.append(valueString.data(using: String.Encoding.utf8)!, withName: key)
-                    }
+        let urlRequest = try! URLRequest(url: url!, method: .post, headers: HTTPHeaders.init(header ?? [:]))
+        AF.upload(multipartFormData: { multipartFormData in
+            for (key,value) in self.parameters {
+                if let valueString = value as? String {
+                    multipartFormData.append(valueString.data(using: String.Encoding.utf8)!, withName: key)
                 }
-                for data in self.uploadData! {
-                    multipartFormData.append(data.data as Data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
-                }
-        },
-            with: urlRequest,
-            encodingCompletion: { encodingResult in
-                switch encodingResult {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        debugPrint(response)
-                        let json = JSON(response.result.value as Any)
-                        self.successWithResponse(response: json)
-                    }
-                case .failure(let encodingError):
-                    print(encodingError)
-                    self.failureWithError(error: encodingError)
-                }
+            }
+            for data in self.uploadData! {
+                multipartFormData.append(data.data as Data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
+            }
+        }, to: url!).responseJSON { (encodingResult) in
+            switch encodingResult.result {
+            case .success(let value):
+//                upload.responseJSON { response in
+                    debugPrint(value)
+                    let json = JSON(value as Any)
+                    self.successWithResponse(response: json)
+//                }
+            case .failure(let encodingError):
+                print(encodingError)
+                self.failureWithError(error: encodingError)
+            }
         }
-        )
+//        AF.upload(
+//            multipartFormData: { multipartFormData in
+//                for (key,value) in self.parameters {
+//                    if let valueString = value as? String {
+//                        multipartFormData.append(valueString.data(using: String.Encoding.utf8)!, withName: key)
+//                    }
+//                }
+//                for data in self.uploadData! {
+//                    multipartFormData.append(data.data as Data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
+//                }
+//        },
+//            with: urlRequest,
+//            encodingCompletion: { encodingResult in
+//                switch encodingResult {
+//                case .success(let upload, _, _):
+//                    upload.responseJSON { response in
+//                        debugPrint(response)
+//                        let json = JSON(response.result.value as Any)
+//                        self.successWithResponse(response: json)
+//                    }
+//                case .failure(let encodingError):
+//                    print(encodingError)
+//                    self.failureWithError(error: encodingError)
+//                }
+//        }
+//        )
     }
 }

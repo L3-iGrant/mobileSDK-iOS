@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		0E8616762237C3F9001783E2 /* iGrantioSDK_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8616752237C3F9001783E2 /* iGrantioSDK_Tests.swift */; };
 		0E975ACF23EB0F15004320DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
-		38E3E836032C2E9EED388D15 /* Pods_iGrantioSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7232523D7C2BE072B3A57D /* Pods_iGrantioSDK_Example.framework */; };
-		44185A2D6B58A27B6FC08FEE /* Pods_iGrantioSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED7636077A1329D8578859B /* Pods_iGrantioSDK_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		85733239C950745F892E0D4F /* Pods_iGrantioSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38160ECB01D0325C7EA5A310 /* Pods_iGrantioSDK_Tests.framework */; };
+		98923CA04127FE646D958D77 /* Pods_iGrantioSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DD0D772F2BF68DDC14CB6F0 /* Pods_iGrantioSDK_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +28,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DD0D772F2BF68DDC14CB6F0 /* Pods_iGrantioSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iGrantioSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E8616672237C33D001783E2 /* iGrantioSDK_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iGrantioSDK_ExampleTests.swift; sourceTree = "<group>"; };
 		0E8616692237C33D001783E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E8616732237C3F8001783E2 /* iGrantioSDK_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iGrantioSDK_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E8616752237C3F9001783E2 /* iGrantioSDK_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iGrantioSDK_Tests.swift; sourceTree = "<group>"; };
 		0E8616772237C3F9001783E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1AAED389CA561953DE5F3D28 /* Pods-iGrantioSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2882500E8EDCD67397EBEAC8 /* iGrantioSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iGrantioSDK.podspec; path = ../iGrantioSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		5D3EBD50517126E5AE83F5D9 /* Pods-iGrantioSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Tests.debug.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Tests/Pods-iGrantioSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		5ED7636077A1329D8578859B /* Pods_iGrantioSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iGrantioSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		38160ECB01D0325C7EA5A310 /* Pods_iGrantioSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iGrantioSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FD6C69CED088397D6984D12 /* Pods-iGrantioSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Tests/Pods-iGrantioSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* iGrantioSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iGrantioSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,11 +45,9 @@
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9129188A5C199EC124CA5535 /* Pods-iGrantioSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		654933EDF9618395376FF5EE /* Pods-iGrantioSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Tests.debug.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Tests/Pods-iGrantioSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		A270249F3B642481837F1D39 /* Pods-iGrantioSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C35BA67125CBB9C95E5A7B16 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		C7BDBF4424A24B353995CC0A /* Pods-iGrantioSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Tests/Pods-iGrantioSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		C89E43B5499D4412BF48D9DF /* Pods-iGrantioSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
-		CB7232523D7C2BE072B3A57D /* Pods_iGrantioSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iGrantioSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E88B6612F3F01D418B8D3E85 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44185A2D6B58A27B6FC08FEE /* Pods_iGrantioSDK_Tests.framework in Frameworks */,
+				85733239C950745F892E0D4F /* Pods_iGrantioSDK_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,22 +64,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38E3E836032C2E9EED388D15 /* Pods_iGrantioSDK_Example.framework in Frameworks */,
+				98923CA04127FE646D958D77 /* Pods_iGrantioSDK_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0DFC75C62D09CC26987C6F1E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CB7232523D7C2BE072B3A57D /* Pods_iGrantioSDK_Example.framework */,
-				5ED7636077A1329D8578859B /* Pods_iGrantioSDK_Tests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		0E8616662237C33D001783E2 /* iGrantioSDK_ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,7 +98,7 @@
 				0E8616742237C3F9001783E2 /* iGrantioSDK_Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				D76140B166FDA8611B32EDE6 /* Pods */,
-				0DFC75C62D09CC26987C6F1E /* Frameworks */,
+				DAAA0F50AE54E3C8800A1C15 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,12 +146,21 @@
 		D76140B166FDA8611B32EDE6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9129188A5C199EC124CA5535 /* Pods-iGrantioSDK_Example.debug.xcconfig */,
-				C89E43B5499D4412BF48D9DF /* Pods-iGrantioSDK_Example.release.xcconfig */,
-				5D3EBD50517126E5AE83F5D9 /* Pods-iGrantioSDK_Tests.debug.xcconfig */,
-				C7BDBF4424A24B353995CC0A /* Pods-iGrantioSDK_Tests.release.xcconfig */,
+				1AAED389CA561953DE5F3D28 /* Pods-iGrantioSDK_Example.debug.xcconfig */,
+				A270249F3B642481837F1D39 /* Pods-iGrantioSDK_Example.release.xcconfig */,
+				654933EDF9618395376FF5EE /* Pods-iGrantioSDK_Tests.debug.xcconfig */,
+				4FD6C69CED088397D6984D12 /* Pods-iGrantioSDK_Tests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DAAA0F50AE54E3C8800A1C15 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0DD0D772F2BF68DDC14CB6F0 /* Pods_iGrantioSDK_Example.framework */,
+				38160ECB01D0325C7EA5A310 /* Pods_iGrantioSDK_Tests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,7 +170,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0E86167A2237C3F9001783E2 /* Build configuration list for PBXNativeTarget "iGrantioSDK_Tests" */;
 			buildPhases = (
-				66017E967BB5BD5A0ACBFB21 /* [CP] Check Pods Manifest.lock */,
+				0AE272DFE8BD58642412F4E0 /* [CP] Check Pods Manifest.lock */,
 				0E86166F2237C3F8001783E2 /* Sources */,
 				0E8616702237C3F8001783E2 /* Frameworks */,
 				0E8616712237C3F8001783E2 /* Resources */,
@@ -189,11 +189,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "iGrantioSDK_Example" */;
 			buildPhases = (
-				E7B3A47323A108FF3CAF16F6 /* [CP] Check Pods Manifest.lock */,
+				B72CAA6D234D02822BD4EA5B /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				2FFBFBB57DEA20A03A538BEF /* [CP] Embed Pods Frameworks */,
+				411DA2349D39F57EAE9BD053 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -268,7 +268,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2FFBFBB57DEA20A03A538BEF /* [CP] Embed Pods Frameworks */ = {
+		0AE272DFE8BD58642412F4E0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iGrantioSDK_Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		411DA2349D39F57EAE9BD053 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -314,29 +336,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		66017E967BB5BD5A0ACBFB21 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-iGrantioSDK_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E7B3A47323A108FF3CAF16F6 /* [CP] Check Pods Manifest.lock */ = {
+		B72CAA6D234D02822BD4EA5B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -410,7 +410,7 @@
 /* Begin XCBuildConfiguration section */
 		0E86167B2237C3F9001783E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5D3EBD50517126E5AE83F5D9 /* Pods-iGrantioSDK_Tests.debug.xcconfig */;
+			baseConfigurationReference = 654933EDF9618395376FF5EE /* Pods-iGrantioSDK_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -440,7 +440,7 @@
 		};
 		0E86167C2237C3F9001783E2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7BDBF4424A24B353995CC0A /* Pods-iGrantioSDK_Tests.release.xcconfig */;
+			baseConfigurationReference = 4FD6C69CED088397D6984D12 /* Pods-iGrantioSDK_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -572,7 +572,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9129188A5C199EC124CA5535 /* Pods-iGrantioSDK_Example.debug.xcconfig */;
+			baseConfigurationReference = 1AAED389CA561953DE5F3D28 /* Pods-iGrantioSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 6;
@@ -591,7 +591,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C89E43B5499D4412BF48D9DF /* Pods-iGrantioSDK_Example.release.xcconfig */;
+			baseConfigurationReference = A270249F3B642481837F1D39 /* Pods-iGrantioSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 6;
