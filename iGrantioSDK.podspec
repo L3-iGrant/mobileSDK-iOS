@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iGrantioSDK'
-  s.version          = '0.6.7'
+  s.version          = '0.6.8'
   s.summary          = 'will add'
 
 # This description is used to generate tags and improve search results.
@@ -34,10 +34,9 @@ s.resource_bundles = {
 'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard']
 }
 s.resources = 'iGrantioSDK/iGrant.xcassets'
-
 # s.public_header_files = 'Pod/Classes/**/*.h'
 s.frameworks = 'UIKit' , 'SafariServices'
-s.dependency 'Alamofire', '4.9.1'
+s.dependency 'Alamofire'
 s.dependency 'SwiftyJSON'
 s.dependency 'MBProgressHUD'
 s.dependency 'SkyFloatingLabelTextField', '~> 3.0'
