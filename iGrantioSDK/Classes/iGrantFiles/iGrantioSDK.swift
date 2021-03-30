@@ -8,10 +8,11 @@
 
 import UIKit
 
-public class iGrantViewController: UIViewController {
+public class iGrantioSDK: UIViewController {
 
-    public static var shared = iGrantViewController()
+    public static var shared = iGrantioSDK()
     var orgId: String?
+    var userId: String?
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -35,16 +36,17 @@ public class iGrantViewController: UIViewController {
         })
     }
     
-    public func show(organisationToken: String, userToken: String) {
-        orgId = organisationToken
-        if(!userToken.isEmpty){
+    public func show(organisationId: String, apiKey: String, userId: String) {
+        orgId = organisationId
+        self.userId = userId
+        if(!apiKey.isEmpty){
             let serviceManager = LoginServiceManager()
             serviceManager.getUserDetails()
-            let data = userToken.data(using: .utf8) ?? Data()
+            let data = apiKey.data(using: .utf8) ?? Data()
             _ = KeyChain.save(key: "iGrantioToken", data: data)
             
             let orgVC = getOrgVC()
-                       orgVC.organisationId = organisationToken
+                       orgVC.organisationId = organisationId
                        
                        let navVC = UINavigationController.init(rootViewController: orgVC)
                        navVC.modalPresentationStyle = .fullScreen
@@ -52,19 +54,19 @@ public class iGrantViewController: UIViewController {
             return;
         }
         
-        if UserInfo.restoreSession() {
+        if userId != "" {
             let orgVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "OrgDetailedVC") as! OrganisationViewController
-            orgVC.organisationId = organisationToken
-            
+            orgVC.organisationId = organisationId
+            self.userId = userId
             let navVC = UINavigationController.init(rootViewController: orgVC)
             navVC.modalPresentationStyle = .fullScreen
             UIApplication.topViewController()?.present(navVC, animated: true, completion: nil)
         } else {
             let loginVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
             let loginNav = UINavigationController.init(rootViewController: loginVC)
-            loginVC.orgId = organisationToken
+            loginVC.orgId = organisationId
+            self.userId = userId
             loginNav.modalPresentationStyle = .fullScreen
-
             UIApplication.topViewController()?.present(loginNav, animated: true, completion: nil)
         }
     }

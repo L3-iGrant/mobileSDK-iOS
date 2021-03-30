@@ -17,8 +17,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showIgrantView(_ sender: Any) {
-        iGrantViewController.shared.modalPresentationStyle = .fullScreen
-        iGrantViewController.shared.show(organisationToken: "5e899ded7e7cba00018166e4", userToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1ZjUzMWY3MmM2NzAwMTAwMDEwMGY5ZWYiLCJleHAiOjE2MzA1MDcwNTJ9.ZcIuXYN0WhIvid0jV4Y-SiPSGKWR8WwpfX3HmuwbRKg")
+        iGrantioSDK.shared.modalPresentationStyle = .fullScreen
+        iGrantioSDK.shared.show(organisationId: "603e683c69dd720001c74f93", apiKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDNlNjdkYjY5ZGQ3MjAwMDFjNzRmOTAiLCJleHAiOjE2NDU4ODI0NjN9.9GxRitStk3eaggQL-lCAfY1z2cRMZlq3TPqwdTq0aSQ", userId: "605cb3508f373f00016b65f9")
     }
     
     override func didReceiveMemoryWarning() {

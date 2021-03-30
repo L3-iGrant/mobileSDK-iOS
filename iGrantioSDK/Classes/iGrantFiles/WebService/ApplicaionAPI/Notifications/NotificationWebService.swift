@@ -32,7 +32,8 @@ class NotificationWebService: BaseWebService {
 //    }
     
     func consentHistoryList(){
-        self.url = baseUrl + "user/consenthistory"
+        let userID = iGrantioSDK.shared.userId ?? ""
+        self.url = baseUrl + "users/" + userID + "/consenthistory"
         GET()
     }
     
