@@ -13,7 +13,7 @@ struct Constant {
 
     static func getStoryboard(vc: AnyClass) -> UIStoryboard {
         let bundle = Bundle(for: vc.self)
-        guard let resourcesBundleUrl = bundle.resourceURL?.appendingPathComponent("iGrantioSDK.bundle") else {
+        guard let resourcesBundleUrl = bundle.resourceURL?.appendingPathComponent("iGrant.bundle") else {
             return UIStoryboard(name:"iGrant", bundle: Bundle.init(for: vc))
         }
         return UIStoryboard(name:"iGrant", bundle: Bundle(url: resourcesBundleUrl))

@@ -13,6 +13,7 @@ public class iGrantioSDK: UIViewController {
     public static var shared = iGrantioSDK()
     var orgId: String?
     var userId: String?
+    var hideBackButton = false
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,9 @@ public class iGrantioSDK: UIViewController {
             self.userId = userId
             let navVC = UINavigationController.init(rootViewController: orgVC)
             navVC.modalPresentationStyle = .fullScreen
+            if !hideBackButton{
+                
+            }
             UIApplication.topViewController()?.present(navVC, animated: true, completion: nil)
         } else {
             let loginVC = Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
@@ -67,8 +71,24 @@ public class iGrantioSDK: UIViewController {
             loginVC.orgId = organisationId
             self.userId = userId
             loginNav.modalPresentationStyle = .fullScreen
+            if !hideBackButton{
+                
+            }
             UIApplication.topViewController()?.present(loginNav, animated: true, completion: nil)
         }
+    }
+    
+    func showBackButton(){
+        let btn1 = UIButton(type: .custom)
+            btn1.setImage(UIImage(named: "orgback"), for: .normal)
+            btn1.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+            btn1.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+            let item1 = UIBarButtonItem(customView: btn1)
+            self.navigationItem.setRightBarButtonItems([item1], animated: true)
+    }
+    
+    @objc func goBack(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     public func iGrantRegisterForPushNotification (deviceToken: String){

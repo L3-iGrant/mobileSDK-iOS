@@ -31,9 +31,8 @@ s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift,storyboard}'
 s.swift_version = '5.0'
 s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
-'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard']
+'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard','iGrantioSDK/iGrant.xcassets']
 }
-s.resources = 'iGrantioSDK/iGrant.xcassets'
 # s.public_header_files = 'Pod/Classes/**/*.h'
 s.frameworks = 'UIKit' , 'SafariServices'
 s.dependency 'Alamofire', '~> 5.4.1'
