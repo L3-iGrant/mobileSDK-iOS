@@ -32,7 +32,8 @@ You can easily present the iGrantViewController by single line code shown below:
 ```swift
 #import iGrantioSDK
 
-iGrantViewController.shared.show(organisationToken: <Your iGrant.io Organisation Token> , userToken: <iGrant.io Token of User>)
+iGrantioSDK.shared.modalPresentationStyle = .fullScreen
+iGrantioSDK.shared.show(organisationId: <ORGANISATION ID>, apiKey: <API KEY>, userId: <USERID>)
 ```
 
 ## Author

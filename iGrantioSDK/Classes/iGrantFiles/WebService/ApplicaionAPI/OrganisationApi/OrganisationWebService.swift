@@ -51,7 +51,6 @@ class OrganisationWebService: BaseWebService {
     func getOrganisationSubscribeMethod(orgId : String) {
         self.url = baseUrl + "organizations/" + orgId + "/subscribe-method"
         GET()
-        
     }
     
     func removeOrganisation(orgId : String){
