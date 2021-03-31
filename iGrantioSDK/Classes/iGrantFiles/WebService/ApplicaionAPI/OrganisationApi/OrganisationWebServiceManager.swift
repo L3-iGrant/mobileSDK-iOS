@@ -46,6 +46,7 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
     var requestId = ""
     var requestType = RequestType.DownloadData
     var isLoadMore = false
+    
     func refreshToken(){
         let service = BaseWebService()
         service.delegate = self
@@ -85,12 +86,13 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
         serviceType = .PurposeList
         DispatchQueue.global().async {
             self.searchService.delegate = self
-            var userId  =  ""
-            if  UserInfo.currentUser()?.userID != nil{
-                userId =  (UserInfo.currentUser()?.userID)!
-            }
+            //        var userId  =  ""
+            //        if  UserInfo.currentUser()?.userID != nil{
+            //            userId =  (UserInfo.currentUser()?.userID)!
+            //        }
+                    let userID = iGrantioSDK.shared.userId ?? ""
             let urlPart = "/consents/" + consentId + "/purposes/" + purposeId
-            self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userId + urlPart
+            self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userID + urlPart
             self.searchService.GET()
         }
     }
@@ -120,12 +122,13 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
         consentDictionary = valuesDict
         DispatchQueue.global().async {
             self.searchService.delegate = self
-            var userId  =  ""
-            if  UserInfo.currentUser()?.userID != nil{
-                userId =  (UserInfo.currentUser()?.userID)!
-            }
+            //        var userId  =  ""
+            //        if  UserInfo.currentUser()?.userID != nil{
+            //            userId =  (UserInfo.currentUser()?.userID)!
+            //        }
+                    let userID = iGrantioSDK.shared.userId ?? ""
             let urlPart = "/consents/" + consentID + "/purposes/" + purposeId + "/attributes/" + attributeId
-            self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userId + urlPart
+            self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userID + urlPart
             self.searchService.parameters = valuesDict
             self.searchService.PATCH()
 //            self.searchService.changeConsent(orgId: orgId, consentID: consentID, parameter: valuesDict)
@@ -139,12 +142,13 @@ class OrganisationWebServiceManager: WebServiceTaskManager {
             consentId = consentID
             DispatchQueue.global().async {
                 self.searchService.delegate = self
-                var userId  =  ""
-                if  UserInfo.currentUser()?.userID != nil{
-                    userId =  (UserInfo.currentUser()?.userID)!
-                }
+                //        var userId  =  ""
+                //        if  UserInfo.currentUser()?.userID != nil{
+                //            userId =  (UserInfo.currentUser()?.userID)!
+                //        }
+                        let userID = iGrantioSDK.shared.userId ?? ""
                 let urlPart = "/consents/" + consentID + "/purposes/" + purposeId + "/status"
-                self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userId + urlPart
+                self.searchService.url = baseUrl + "organizations/" + orgId + "/users/" + userID + urlPart
                 self.searchService.parameters = ["consented" : status as AnyObject]
                 self.searchService.POST()
                 //            self.searchService.changeConsent(orgId: orgId, consentID: consentID, parameter: valuesDict)

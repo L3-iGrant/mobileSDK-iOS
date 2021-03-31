@@ -24,13 +24,13 @@ class ConsentStatus{
 		days = json["Days"].intValue
 		remaining = json["Remaining"].intValue
 		timeStamp = json["TimeStamp"].stringValue
-        if json["Consented"].stringValue == "Allow"{
+        if json["Consented"].stringValue.lowercased() == "Allow".lowercased(){
             consented = .Allow
         }
-        else if json["Consented"].stringValue == "DisAllow"{
+        else if json["Consented"].stringValue.lowercased() == "DisAllow".lowercased(){
             consented = .Disallow
         }
-        else if json["Consented"].stringValue == "yes"{
+        else if json["Consented"].stringValue.lowercased() == "yes".lowercased(){
             consented = .Allow
         }
         else{

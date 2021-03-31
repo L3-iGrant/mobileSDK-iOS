@@ -22,7 +22,6 @@ class OrganisationWebService: BaseWebService {
     }
     
     func getSubscribedOrgnaisationList(categoryId : String){
-        
         self.url = baseUrl + "GetUserOrgsAndSuggestionsByType" + "?typeID=" + categoryId
         GET()
     }
@@ -33,7 +32,8 @@ class OrganisationWebService: BaseWebService {
     }
     
     func organisationDetails(orgId : String){
-        self.url = baseUrl + "GetUserOrgsAndConsents" + "?orgID=" + orgId
+        let userID = iGrantioSDK.shared.userId ?? ""
+        self.url = baseUrl + "users/" + userID + "/GetUserOrgsAndConsents" + "?orgID=" + orgId
         GET()
     }
     

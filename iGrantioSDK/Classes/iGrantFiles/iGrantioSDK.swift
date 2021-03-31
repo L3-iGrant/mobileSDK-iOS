@@ -62,7 +62,7 @@ public class iGrantioSDK: UIViewController {
             let navVC = UINavigationController.init(rootViewController: orgVC)
             navVC.modalPresentationStyle = .fullScreen
             if !hideBackButton{
-                
+                showBackButton()
             }
             UIApplication.topViewController()?.present(navVC, animated: true, completion: nil)
         } else {
@@ -72,7 +72,7 @@ public class iGrantioSDK: UIViewController {
             self.userId = userId
             loginNav.modalPresentationStyle = .fullScreen
             if !hideBackButton{
-                
+                showBackButton()
             }
             UIApplication.topViewController()?.present(loginNav, animated: true, completion: nil)
         }
