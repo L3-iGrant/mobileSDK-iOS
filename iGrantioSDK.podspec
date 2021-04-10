@@ -46,7 +46,6 @@ s.dependency 'StepProgressView'
 s.dependency 'SDStateTableView'
 s.dependency 'SwiftEntryKit'
 s.dependency 'AFDateHelper'
-
 #s.dependency "Popover"
 s.dependency 'Toast-Swift'
 
