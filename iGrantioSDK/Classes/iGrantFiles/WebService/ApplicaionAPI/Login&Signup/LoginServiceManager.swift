@@ -19,6 +19,7 @@ enum LoginServiceType {
     case VerifyOTP
     case UpdateDeviceToken
     case getUserInfo
+    case getiGrantUser
 
 }
 
@@ -176,6 +177,15 @@ class LoginServiceManager: BaseWebServiceManager {
             loginService.verifyOtpService()
         }
     }
+    
+    func getiGrantUser(orgId: String){
+        self.serviceType = .getiGrantUser
+        DispatchQueue.global().async{
+            let loginService = LoginWebService()
+            loginService.delegate = self
+            loginService.getiGrantUser(orgId: orgId)
+        }
+    }
 }
 
 
@@ -206,7 +216,7 @@ extension LoginServiceManager : BaseServiceDelegates {
                     case .VerifyOTP : self.handleEmailValidatioResponse(response: response)
                     case .UpdateDeviceToken :self.handleDeviceTokenUpdateResponse(response: response)
                     case .getUserInfo: self.handleUserInfoResponse(response: response)
-
+                    case .getiGrantUser: self.handleGetiGrantUser(response: response)
                 }
             }
         }
@@ -340,6 +350,13 @@ extension LoginServiceManager {
         }
     }
     
+    func handleGetiGrantUser(response:RestResponse?){
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.managerDelegate?.didFinishTask(from: self, response: (data: response, error: nil))
+            }
+        }
+    }
     func handlePrifleInfoUpdateResponse(response:RestResponse?){
         let responseData = response!.response!
         DispatchQueue.global().async {

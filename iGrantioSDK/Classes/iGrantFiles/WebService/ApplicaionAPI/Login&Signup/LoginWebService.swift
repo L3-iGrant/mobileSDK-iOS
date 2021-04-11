@@ -84,4 +84,10 @@ class LoginWebService: BaseWebService {
 //        self.url = baseUrl + "users/" + userId + "?access_token=" + accessToken
 //        PATCH()
     }
+    
+    
+    func getiGrantUser(orgId: String) {
+        self.url = baseUrl + "organizations/" + orgId + "/users/anonymous"
+        POST()
+    }
 }

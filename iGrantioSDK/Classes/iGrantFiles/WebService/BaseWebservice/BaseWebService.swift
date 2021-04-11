@@ -16,12 +16,12 @@ import SwiftyJSON
 //var baseUrl = "https://api.igrant.io/v1/"
 
 //staging
-var baseUrl = "https://staging-api.igrant.io/v1/"
-var baseUrl_V1 = "https://staging-api.igrant.io/v1.1/"
+//var baseUrl = "https://staging-api.igrant.io/v1/"
+//var baseUrl_V1 = "https://staging-api.igrant.io/v1.1/"
 
 //demo
-//var baseUrl = "https://demo-api.igrant.io/v1/"
-//var baseUrl_V1 = "https://demo-api.igrant.io/v1.1/"
+var baseUrl = "https://demo-api.igrant.io/v1/"
+var baseUrl_V1 = "https://demo-api.igrant.io/v1.1/"
 
 class RestResponse : NSObject {
     var response : JSON?

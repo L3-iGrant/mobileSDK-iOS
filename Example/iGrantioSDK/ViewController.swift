@@ -17,8 +17,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showIgrantView(_ sender: Any) {
+//        iGrantioSDK.shared.createIGrantUser(orgId: "5e899ded7e7cba00018166e4",apiKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1ZTg5OGFmMTdlN2NiYTAwMDE4MTY2ZTMiLCJleHAiOjE2NDkyMjgzNTF9.60vbvPiqzcPYQY7VmIGx57niBWC_af9VjR-HEQs3a1s") {(success, userId) in
+//            print("USErID \(userId)")
+//        }
+        
         iGrantioSDK.shared.modalPresentationStyle = .fullScreen
-        iGrantioSDK.shared.show(organisationId: "603e683c69dd720001c74f93", apiKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MDNlNjdkYjY5ZGQ3MjAwMDFjNzRmOTAiLCJleHAiOjE2NDU4ODI0NjN9.9GxRitStk3eaggQL-lCAfY1z2cRMZlq3TPqwdTq0aSQ", userId: "605cb3508f373f00016b65f9")
+        iGrantioSDK.shared.show(organisationId: "5e899ded7e7cba00018166e4", apiKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1ZTg5OGFmMTdlN2NiYTAwMDE4MTY2ZTMiLCJleHAiOjE2NDkyMjgzNTF9.60vbvPiqzcPYQY7VmIGx57niBWC_af9VjR-HEQs3a1s", userId: "5d8db1428e252f000180b5a6")
     }
     
     override func didReceiveMemoryWarning() {

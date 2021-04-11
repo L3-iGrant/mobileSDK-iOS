@@ -14,7 +14,7 @@ public class iGrantioSDK: UIViewController {
     var orgId: String?
     var userId: String?
     var hideBackButton = false
-    
+    var completion: ((_ success: Bool,_ userID: String) -> Void)?
     override public func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.resetToLoginScreen), name: Notification.Name("ResetToLogin"), object: nil)
@@ -96,6 +96,22 @@ public class iGrantioSDK: UIViewController {
         serviceManager.updateDeviceToken(deviceToken: deviceToken)
     }
     
+    public func createIGrantUser(orgId: String,apiKey: String,completion: @escaping(_ success: Bool,_ userID: String) -> Void) {
+        self.orgId = orgId
+        self.completion = completion
+        if(!apiKey.isEmpty){
+            let data = apiKey.data(using: .utf8) ?? Data()
+            _ = KeyChain.save(key: "iGrantioToken", data: data)
+        }
+        callLoginService(orgId: orgId)
+    }
+    
+    func callLoginService(orgId:String){
+            self.addLoadingIndicator()
+            let serviceManager = LoginServiceManager()
+            serviceManager.managerDelegate = self
+            serviceManager.getiGrantUser(orgId: orgId)
+    }
     /*
     // MARK: - Navigation
 
@@ -105,5 +121,26 @@ public class iGrantioSDK: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+extension iGrantioSDK:WebServiceTaskManagerProtocol{
+    func didFinishTask(from manager:AnyObject, response:(data:RestResponse?,error:String?)){
+        self.removeLoadingIndicator()
+        if response.error != nil{
+            self.showErrorAlert(message: response.error!)
+        }else{
+            if let serviceManager = manager as? LoginServiceManager{
+                if serviceManager.serviceType == .getiGrantUser{
+                    if let userID = response.data?.response?["ID"].string {
+                        self.completion?(true,userID)
+                    } else {
+                        self.completion?(false,"")
+                    }
+                  
+                }
+            }
+        }
+    }
 
 }
