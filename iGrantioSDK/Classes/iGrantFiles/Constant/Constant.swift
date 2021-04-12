@@ -19,6 +19,16 @@ struct Constant {
         return UIStoryboard(name:"iGrant", bundle: Bundle(url: resourcesBundleUrl))
     }
     
+    static func getResourcesBundle(vc: AnyClass) -> Bundle? {
+//        return nil
+       
+       //SDK
+       let bundle = Bundle(for: vc.self)
+       guard let resourcesBundleUrl = bundle.resourceURL?.appendingPathComponent("iGrant.bundle") else {
+           return nil
+       }
+       return Bundle(url: resourcesBundleUrl)
+   }
     struct AppSetupConstant {
         static let KSavingUSerInfoUserDefaultKey = "UserSession"
         static let KAppName = "iGrant.io"

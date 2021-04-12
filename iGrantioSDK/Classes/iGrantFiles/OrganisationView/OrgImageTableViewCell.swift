@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class OrgImageTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLbl: UILabel!
@@ -57,74 +58,95 @@ class OrgImageTableViewCell: UITableViewCell {
     func showData(){
         self.nameLbl.text = self.orgData?.name
         self.locationLbl.text = self.orgData?.location
-        if let imageUrl = self.orgData?.coverImageURL{
-            var headers = [
-                "Authorization": "Bearer \(UserInfo.currentUser()?.token ?? "")"
-            ]
-            
+        let modifier = AnyModifier { request in
+            var r = request
+            r.setValue("Bearer \(UserInfo.currentUser()?.token ?? "")", forHTTPHeaderField: "Authorization")
             if let tokendata = KeyChain.load(key: "iGrantioToken") {
-                       let token = String(data: tokendata, encoding: .utf8) ?? ""
-                       let hearDict = ["Authorization":"ApiKey \(token)"]
-                       headers = hearDict
-                   }
-            
-            let request = NSMutableURLRequest(url: imageUrl,
-                                              cachePolicy: .useProtocolCachePolicy,
-                                              timeoutInterval: 10.0)
-            request.httpMethod = "GET"
-            request.allHTTPHeaderFields = headers
-            
-            let session = URLSession.shared
-            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-                if (error != nil) {
-                    print(error!)
-                } else {
-                    if data != nil {
-                        if let image = UIImage.init(data: data!) {
-                            DispatchQueue.main.async {
-                                self.orgImageView.image = image
-                            }
-                        }
-                    }
-                }
-            })
-            
-            dataTask.resume()
+                let token = String(data: tokendata, encoding: .utf8) ?? ""
+                r.setValue("ApiKey \(token)", forHTTPHeaderField: "Authorization")
+            }
+            return r
+        }
+
+        if let imageUrl = self.orgData?.coverImageURL{
+            let placeholder = UIImage(named: "Default_Coverimage", in: Constant.getResourcesBundle(vc: BaseViewController().classForCoder), compatibleWith: nil)
+
+            self.orgImageView.kf.setImage(with: imageUrl, placeholder: placeholder, options: [.requestModifier(modifier)])
         }
         if let imageUrl = self.orgData?.logoImageURL{
-            var headers = [
-                "Authorization": "Bearer \(UserInfo.currentUser()?.token ?? "")"
-            ]
-            
-            if let tokendata = KeyChain.load(key: "iGrantioToken") {
-                                 let token = String(data: tokendata, encoding: .utf8) ?? ""
-                                 let hearDict = ["Authorization":"ApiKey \(token)"]
-                                 headers = hearDict
-                             }
-                      
-            let request = NSMutableURLRequest(url: imageUrl,
-                                              cachePolicy: .useProtocolCachePolicy,
-                                              timeoutInterval: 10.0)
-            request.httpMethod = "GET"
-            request.allHTTPHeaderFields = headers
-            
-            let session = URLSession.shared
-            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-                if (error != nil) {
-                    print(error!)
-                } else {
-                    if data != nil {
-                        if let image = UIImage.init(data: data!) {
-                            DispatchQueue.main.async {
-                                 self.logoImageView.image = image
-                            }
-                        }
-                    }
-                }
-            })
-            
-            dataTask.resume()
+            let placeholder = UIImage(named: "Tick_Transparent-Grey-2", in: Constant.getResourcesBundle(vc: BaseViewController().classForCoder), compatibleWith: nil)
+
+            self.logoImageView.kf.setImage(with: imageUrl, placeholder: placeholder, options: [.requestModifier(modifier)])
         }
+        
+//        if let imageUrl = self.orgData?.coverImageURL{
+//            var headers = [
+//                "Authorization": "Bearer \(UserInfo.currentUser()?.token ?? "")"
+//            ]
+//
+//            if let tokendata = KeyChain.load(key: "iGrantioToken") {
+//                       let token = String(data: tokendata, encoding: .utf8) ?? ""
+//                       let hearDict = ["Authorization":"ApiKey \(token)"]
+//                       headers = hearDict
+//                   }
+//
+//            let request = NSMutableURLRequest(url: imageUrl,
+//                                              cachePolicy: .useProtocolCachePolicy,
+//                                              timeoutInterval: 10.0)
+//            request.httpMethod = "GET"
+//            request.allHTTPHeaderFields = headers
+//
+//            let session = URLSession.shared
+//            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+//                if (error != nil) {
+//                    print(error!)
+//                } else {
+//                    if data != nil {
+//                        if let image = UIImage.init(data: data!) {
+//                            DispatchQueue.main.async {
+//                                self.orgImageView.image = image
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//
+//            dataTask.resume()
+//        }
+//        if let imageUrl = self.orgData?.logoImageURL{
+//            var headers = [
+//                "Authorization": "Bearer \(UserInfo.currentUser()?.token ?? "")"
+//            ]
+//
+//            if let tokendata = KeyChain.load(key: "iGrantioToken") {
+//                                 let token = String(data: tokendata, encoding: .utf8) ?? ""
+//                                 let hearDict = ["Authorization":"ApiKey \(token)"]
+//                                 headers = hearDict
+//                             }
+//
+//            let request = NSMutableURLRequest(url: imageUrl,
+//                                              cachePolicy: .useProtocolCachePolicy,
+//                                              timeoutInterval: 10.0)
+//            request.httpMethod = "GET"
+//            request.allHTTPHeaderFields = headers
+//
+//            let session = URLSession.shared
+//            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+//                if (error != nil) {
+//                    print(error!)
+//                } else {
+//                    if data != nil {
+//                        if let image = UIImage.init(data: data!) {
+//                            DispatchQueue.main.async {
+//                                 self.logoImageView.image = image
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//
+//            dataTask.resume()
+//        }
         
     }
 

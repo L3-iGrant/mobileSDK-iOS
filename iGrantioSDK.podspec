@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iGrantioSDK'
-  s.version          = '0.7.6'
+  s.version          = '0.7.7'
   s.summary          = 'will add'
 
 # This description is used to generate tags and improve search results.
@@ -48,5 +48,6 @@ s.dependency 'SwiftEntryKit'
 s.dependency 'AFDateHelper'
 #s.dependency "Popover"
 s.dependency 'Toast-Swift'
+s.dependency 'Kingfisher'
 
 end
