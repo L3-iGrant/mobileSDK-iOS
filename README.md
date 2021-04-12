@@ -36,6 +36,16 @@ iGrantioSDK.shared.modalPresentationStyle = .fullScreen
 iGrantioSDK.shared.show(organisationId: <ORGANISATION ID>, apiKey: <API KEY>, userId: <USERID>)
 ```
 
+## Get iGrant user id
+
+If you need to login anonymously, You can use the below function to create new iGrant user id.
+
+```swift
+iGrantioSDK.shared.createIGrantUser(orgId: <ORGANISATION ID>,apiKey: <APIKEY>) {(success, userId) in
+ print("UserID \(userId)")
+}
+```
+
 ## Author
 
 iGrant.io
