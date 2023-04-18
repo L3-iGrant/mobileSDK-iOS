@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iGrantioSDK'
-  s.version          = '0.7.7'
+  s.version          = '0.7.8'
   s.summary          = 'will add'
 
 # This description is used to generate tags and improve search results.
@@ -26,13 +26,15 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/L3-iGrant/mobileSDK-iOS.git', :tag => s.version.to_s }
 
 s.ios.deployment_target = '10.0'
-
-s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift,storyboard}'
+s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift,storyboard,plist}'
 s.swift_version = '5.0'
 s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
 'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard','iGrantioSDK/iGrant.xcassets']
 }
+s.preserve_paths = 'iGrantioSDK/Classes/iGrantFiles/Info.plist'
+s.pod_target_xcconfig = { 'INFOPLIST_FILE' => "${PODS_ROOT}/#{s.name}/Info.plist"}
+
 # s.public_header_files = 'Pod/Classes/**/*.h'
 s.frameworks = 'UIKit' , 'SafariServices'
 s.dependency 'Alamofire', '~> 5.4.1'
