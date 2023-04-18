@@ -18,7 +18,6 @@ public class iGrantioSDK: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.resetToLoginScreen), name: Notification.Name("ResetToLogin"), object: nil)
-
         // Do any additional setup after loading the view.
     }
     
@@ -38,6 +37,11 @@ public class iGrantioSDK: UIViewController {
     }
     
     public func show(organisationId: String, apiKey: String, userId: String) {
+        
+        if #available(iOS 13.0, *) {
+           let appearance = UIView.appearance()
+           appearance.overrideUserInterfaceStyle = .light
+        }
         orgId = organisationId
         self.userId = userId
         if(!apiKey.isEmpty){
