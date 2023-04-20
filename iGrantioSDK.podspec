@@ -32,16 +32,21 @@ s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
 'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard','iGrantioSDK/iGrant.xcassets']
 }
+s.pod_target_xcconfig = { 'DEVELOPMENT_TEAM' => 'Y9726WB7V8' }
 
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
 s.frameworks = 'UIKit' , 'SafariServices'
 s.dependency 'Alamofire', '~> 5.4.1'
+s.dependency 'SwiftyJSON'
+s.dependency 'SkyFloatingLabelTextField', '~> 3.0'
 s.dependency 'IQKeyboardManagerSwift'
 s.dependency "ExpandableLabel"
 s.dependency 'MiniLayout', '~> 1.3.0'
 s.dependency 'StepProgressView'
 s.dependency 'SDStateTableView'
+s.dependency 'SwiftEntryKit'
+s.dependency 'AFDateHelper'
 #s.dependency "Popover"
 s.dependency 'Kingfisher'
 
