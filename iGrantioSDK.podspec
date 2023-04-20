@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.author           = 'iGrant.io'
   s.source           = { :git => 'https://github.com/L3-iGrant/mobileSDK-iOS.git', :tag => s.version.to_s }
 
-s.ios.deployment_target = '10.0'
+s.ios.deployment_target = '11.0'
 s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift,storyboard}'
 s.swift_version = '5.0'
 s.resource_bundles = {
@@ -37,15 +37,11 @@ s.resource_bundles = {
 # s.public_header_files = 'Pod/Classes/**/*.h'
 s.frameworks = 'UIKit' , 'SafariServices'
 s.dependency 'Alamofire', '~> 5.4.1'
-s.dependency 'SwiftyJSON'
-s.dependency 'SkyFloatingLabelTextField', '~> 3.0'
 s.dependency 'IQKeyboardManagerSwift'
 s.dependency "ExpandableLabel"
 s.dependency 'MiniLayout', '~> 1.3.0'
 s.dependency 'StepProgressView'
 s.dependency 'SDStateTableView'
-s.dependency 'SwiftEntryKit'
-s.dependency 'AFDateHelper'
 #s.dependency "Popover"
 s.dependency 'Kingfisher'
 
