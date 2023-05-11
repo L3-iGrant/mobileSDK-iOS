@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iGrantioSDK'
-  s.version          = '0.7.9'
+  s.version          = '0.8.0'
   s.summary          = 'will add'
 
 # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.author           = 'iGrant.io'
   s.source           = { :git => 'https://github.com/L3-iGrant/mobileSDK-iOS.git', :tag => s.version.to_s }
 
-s.ios.deployment_target = '10.0'
+s.ios.deployment_target = '11.0'
 s.source_files = 'iGrantioSDK/Classes/**/*.{h,m,swift,storyboard}'
 s.swift_version = '5.0'
 s.resource_bundles = {
