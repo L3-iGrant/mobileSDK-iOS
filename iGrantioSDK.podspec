@@ -32,7 +32,7 @@ s.resource_bundles = {
 #'iGrantFramework' => ['iGrantFramework/Assets/**/*.png'],
 'iGrant' => ['iGrantioSDK/Classes/iGrantFiles/iGrant.storyboard','iGrantioSDK/iGrant.xcassets']
 }
-s.pod_target_xcconfig = { 'DEVELOPMENT_TEAM' => 'Y9726WB7V8', 'IPHONEOS_DEPLOYMENT_TARGET' => '10.0'}
+s.pod_target_xcconfig = { 'DEVELOPMENT_TEAM' => 'Y9726WB7V8', 'IPHONEOS_DEPLOYMENT_TARGET' => '11.0'}
 
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
