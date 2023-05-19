@@ -22,6 +22,7 @@ class ViewController: UIViewController {
 //        }
         
         iGrantioSDK.shared.modalPresentationStyle = .fullScreen
+        iGrantioSDK.shared.changeSDKMode(mode: .staging)
         iGrantioSDK.shared.show(organisationId: "638dd3b12f5d1700014431ec", apiKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2MzhkZTMzMDJmNWQxNzAwMDE0NDMxZjMiLCJvcmdpZCI6IiIsImVudiI6IiIsImV4cCI6MTcwMTM0NzQ2N30.2q7ENyEIXPRpQ1aF70jcF4XiQJs7YqOHwIogWXt1x5g", userId: "638de3302f5d1700014431f3")
     }
     

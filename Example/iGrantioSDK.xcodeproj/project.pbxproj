@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		0E8616762237C3F9001783E2 /* iGrantioSDK_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8616752237C3F9001783E2 /* iGrantioSDK_Tests.swift */; };
 		0E975ACF23EB0F15004320DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
+		45856E986BA255F54CF114E0 /* libPods-iGrantioSDK_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4951306D4B5BEF46610DB8BD /* libPods-iGrantioSDK_Example.a */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		A0787CDB736DE8BA61943083 /* Pods_iGrantioSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4734FA14048D9B5CB47529D /* Pods_iGrantioSDK_Tests.framework */; };
-		D5E025B6B79BDB08A83D5724 /* Pods_iGrantioSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F71E936433685169A19FBB4 /* Pods_iGrantioSDK_Example.framework */; };
+		75EEA1C2FBCB3FDC009FBF6F /* libPods-iGrantioSDK_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C249AF2F397A06221078C92 /* libPods-iGrantioSDK_Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,20 +34,20 @@
 		0E8616732237C3F8001783E2 /* iGrantioSDK_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iGrantioSDK_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E8616752237C3F9001783E2 /* iGrantioSDK_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iGrantioSDK_Tests.swift; sourceTree = "<group>"; };
 		0E8616772237C3F9001783E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0F71E936433685169A19FBB4 /* Pods_iGrantioSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iGrantioSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2882500E8EDCD67397EBEAC8 /* iGrantioSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iGrantioSDK.podspec; path = ../iGrantioSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		5B45D3FFBC32F7AAE0AD60C6 /* Pods-iGrantioSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
+		36E082AFE59A6771454A6A88 /* Pods-iGrantioSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Tests.debug.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Tests/Pods-iGrantioSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		381323DCBEA427C86EAECC4C /* Pods-iGrantioSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		4951306D4B5BEF46610DB8BD /* libPods-iGrantioSDK_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iGrantioSDK_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* iGrantioSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iGrantioSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		95BDB50A8F977C9B1176285B /* Pods-iGrantioSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Tests.debug.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Tests/Pods-iGrantioSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		B4734FA14048D9B5CB47529D /* Pods_iGrantioSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iGrantioSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BEB113D76AB1CF1A155F3B12 /* Pods-iGrantioSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		66DAB8F79C983F0FE7C794A1 /* Pods-iGrantioSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Tests/Pods-iGrantioSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		6C249AF2F397A06221078C92 /* libPods-iGrantioSDK_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iGrantioSDK_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A22569B6B7475DE0809397E8 /* Pods-iGrantioSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C35BA67125CBB9C95E5A7B16 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		C6AAF18C7A56F4719861EE38 /* Pods-iGrantioSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iGrantioSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-iGrantioSDK_Tests/Pods-iGrantioSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E88B6612F3F01D418B8D3E85 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0787CDB736DE8BA61943083 /* Pods_iGrantioSDK_Tests.framework in Frameworks */,
+				75EEA1C2FBCB3FDC009FBF6F /* libPods-iGrantioSDK_Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5E025B6B79BDB08A83D5724 /* Pods_iGrantioSDK_Example.framework in Frameworks */,
+				45856E986BA255F54CF114E0 /* libPods-iGrantioSDK_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,15 +89,6 @@
 			path = iGrantioSDK_Tests;
 			sourceTree = "<group>";
 		};
-		1A2716ECC422C143EE8B0E93 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0F71E936433685169A19FBB4 /* Pods_iGrantioSDK_Example.framework */,
-				B4734FA14048D9B5CB47529D /* Pods_iGrantioSDK_Tests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -107,7 +98,7 @@
 				0E8616742237C3F9001783E2 /* iGrantioSDK_Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				D76140B166FDA8611B32EDE6 /* Pods */,
-				1A2716ECC422C143EE8B0E93 /* Frameworks */,
+				9A7E3B48BDCB3DC9218AA6E4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,13 +143,22 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		9A7E3B48BDCB3DC9218AA6E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4951306D4B5BEF46610DB8BD /* libPods-iGrantioSDK_Example.a */,
+				6C249AF2F397A06221078C92 /* libPods-iGrantioSDK_Tests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D76140B166FDA8611B32EDE6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BEB113D76AB1CF1A155F3B12 /* Pods-iGrantioSDK_Example.debug.xcconfig */,
-				5B45D3FFBC32F7AAE0AD60C6 /* Pods-iGrantioSDK_Example.release.xcconfig */,
-				95BDB50A8F977C9B1176285B /* Pods-iGrantioSDK_Tests.debug.xcconfig */,
-				C6AAF18C7A56F4719861EE38 /* Pods-iGrantioSDK_Tests.release.xcconfig */,
+				381323DCBEA427C86EAECC4C /* Pods-iGrantioSDK_Example.debug.xcconfig */,
+				A22569B6B7475DE0809397E8 /* Pods-iGrantioSDK_Example.release.xcconfig */,
+				36E082AFE59A6771454A6A88 /* Pods-iGrantioSDK_Tests.debug.xcconfig */,
+				66DAB8F79C983F0FE7C794A1 /* Pods-iGrantioSDK_Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -170,7 +170,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0E86167A2237C3F9001783E2 /* Build configuration list for PBXNativeTarget "iGrantioSDK_Tests" */;
 			buildPhases = (
-				92FB42579453F1C52E72A794 /* [CP] Check Pods Manifest.lock */,
+				8F45506D987CD3F74930FF8D /* [CP] Check Pods Manifest.lock */,
 				0E86166F2237C3F8001783E2 /* Sources */,
 				0E8616702237C3F8001783E2 /* Frameworks */,
 				0E8616712237C3F8001783E2 /* Resources */,
@@ -189,11 +189,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "iGrantioSDK_Example" */;
 			buildPhases = (
-				EE88BD75213CB33707A10DB9 /* [CP] Check Pods Manifest.lock */,
+				F1972C936E98420C23977081 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				C029EEC73DB6C1373D048B0C /* [CP] Embed Pods Frameworks */,
+				2CE095DF52205DD42B89706B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,7 +268,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		92FB42579453F1C52E72A794 /* [CP] Check Pods Manifest.lock */ = {
+		2CE095DF52205DD42B89706B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F45506D987CD3F74930FF8D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -290,47 +305,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C029EEC73DB6C1373D048B0C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/ExpandableLabel/ExpandableLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/MiniLayout/MiniLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/SDStateTableView/SDStateTableView.framework",
-				"${BUILT_PRODUCTS_DIR}/StepProgressView/StepProgressView.framework",
-				"${BUILT_PRODUCTS_DIR}/SweeterSwift/SweeterSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftEntryKit/SwiftEntryKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/iGrantioSDK/iGrantioSDK.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDateHelper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ExpandableLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MiniLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDStateTableView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StepProgressView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SweeterSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftEntryKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iGrantioSDK.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iGrantioSDK_Example/Pods-iGrantioSDK_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EE88BD75213CB33707A10DB9 /* [CP] Check Pods Manifest.lock */ = {
+		F1972C936E98420C23977081 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -404,7 +379,7 @@
 /* Begin XCBuildConfiguration section */
 		0E86167B2237C3F9001783E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95BDB50A8F977C9B1176285B /* Pods-iGrantioSDK_Tests.debug.xcconfig */;
+			baseConfigurationReference = 36E082AFE59A6771454A6A88 /* Pods-iGrantioSDK_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -434,7 +409,7 @@
 		};
 		0E86167C2237C3F9001783E2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6AAF18C7A56F4719861EE38 /* Pods-iGrantioSDK_Tests.release.xcconfig */;
+			baseConfigurationReference = 66DAB8F79C983F0FE7C794A1 /* Pods-iGrantioSDK_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -566,7 +541,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEB113D76AB1CF1A155F3B12 /* Pods-iGrantioSDK_Example.debug.xcconfig */;
+			baseConfigurationReference = 381323DCBEA427C86EAECC4C /* Pods-iGrantioSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 6;
@@ -585,7 +560,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B45D3FFBC32F7AAE0AD60C6 /* Pods-iGrantioSDK_Example.release.xcconfig */;
+			baseConfigurationReference = A22569B6B7475DE0809397E8 /* Pods-iGrantioSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 6;

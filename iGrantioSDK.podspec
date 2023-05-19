@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iGrantioSDK'
-  s.version          = '0.8.0'
+  s.version          = '0.8.1'
   s.summary          = 'will add'
 
 # This description is used to generate tags and improve search results.

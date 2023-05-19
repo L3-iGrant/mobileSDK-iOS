@@ -8,6 +8,11 @@
 
 import UIKit
 
+public enum iGrantioSDK_Mode{
+    case staging
+    case demo
+}
+
 public class iGrantioSDK: UIViewController {
 
     public static var shared = iGrantioSDK()
@@ -23,6 +28,18 @@ public class iGrantioSDK: UIViewController {
     
     func getOrgVC() -> OrganisationViewController{
         return Constant.getStoryboard(vc: self.classForCoder).instantiateViewController(withIdentifier: "OrgDetailedVC") as? OrganisationViewController ?? OrganisationViewController()
+    }
+    
+    public func changeSDKMode(mode: iGrantioSDK_Mode){
+        if mode == .staging {
+            //staging
+             baseUrl = "https://staging-api.igrant.io/v1/"
+             baseUrl_V1 = "https://staging-api.igrant.io/v1.1/"
+        } else {
+            //demo
+             baseUrl = "https://demo-api.igrant.io/v1/"
+             baseUrl_V1 = "https://demo-api.igrant.io/v1.1/"
+        }
     }
     
     @objc func resetToLoginScreen() {
