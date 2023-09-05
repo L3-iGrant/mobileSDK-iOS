@@ -20,6 +20,8 @@ public class iGrantioSDK: UIViewController {
     var userId: String?
     var hideBackButton = false
     var completion: ((_ success: Bool,_ userID: String) -> Void)?
+    public var enablePresentationAnimation = false
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.resetToLoginScreen), name: Notification.Name("ResetToLogin"), object: nil)
@@ -72,7 +74,7 @@ public class iGrantioSDK: UIViewController {
             orgVC.organisationId = organisationId
             let navVC = UINavigationController.init(rootViewController: orgVC)
             navVC.modalPresentationStyle = .fullScreen
-            UIApplication.topViewController()?.present(navVC, animated: false, completion: nil)
+            UIApplication.topViewController()?.present(navVC, animated: enablePresentationAnimation, completion: nil)
             return
         }
         
