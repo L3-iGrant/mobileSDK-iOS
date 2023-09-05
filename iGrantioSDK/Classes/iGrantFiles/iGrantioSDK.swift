@@ -61,19 +61,19 @@ public class iGrantioSDK: UIViewController {
         }
         orgId = organisationId
         self.userId = userId
-        if(!apiKey.isEmpty){
+        
+        if (!apiKey.isEmpty) {
             let serviceManager = LoginServiceManager()
             serviceManager.getUserDetails()
             let data = apiKey.data(using: .utf8) ?? Data()
             _ = KeyChain.save(key: "iGrantioToken", data: data)
             
             let orgVC = getOrgVC()
-                       orgVC.organisationId = organisationId
-                       
-                       let navVC = UINavigationController.init(rootViewController: orgVC)
-                       navVC.modalPresentationStyle = .fullScreen
-                       UIApplication.topViewController()?.present(navVC, animated: true, completion: nil)
-            return;
+            orgVC.organisationId = organisationId
+            let navVC = UINavigationController.init(rootViewController: orgVC)
+            navVC.modalPresentationStyle = .fullScreen
+            UIApplication.topViewController()?.present(navVC, animated: false, completion: nil)
+            return
         }
         
         if userId != "" {
